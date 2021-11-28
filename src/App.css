@@ -61,3 +61,47 @@ padding: 10px;
   padding: 20px;
   color: white
 }
+
+.windowSizeForm {
+  background-color: #51445d;
+  padding: 8px;
+  border-radius: 8px;
+  width: 250px;
+}
+.windowSizeForm h3 {
+  text-align: center;
+  cursor: pointer;
+}
+.inputContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  align-items: center;
+  padding: 5px 0px;
+}
+.inputContainer input {
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.btn {
+  display: block;
+  padding: 5px 8px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.applyBtn {
+  background-color: #e91e63;
+  color: white;
+}
+.applyBtn:hover {
+  background-color: #db1458;
+}
+
+.winSizeDetails {
+  text-align: center;
+}
