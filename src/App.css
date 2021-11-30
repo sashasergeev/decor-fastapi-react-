@@ -50,28 +50,86 @@ padding: 10px;
 
 }
 .sceneContainer > div {
-  width:50%;
   height: 100%
 }
 .scene {
   background-color: #54368C;
+  width:60%;
 }
 .settings {
+  width: 40%;
   background-color: slateblue;
   padding: 20px;
-  color: white
+  color: white;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
 }
 
-.windowSizeForm {
+.settingContainer {
   background-color: #51445d;
   padding: 8px;
   border-radius: 8px;
   width: 250px;
+  height: fit-content;
 }
-.windowSizeForm h3 {
+.settingContainer h3 {
   text-align: center;
   cursor: pointer;
+  margin: 7px;
 }
+.decorSetContainer {
+  padding: 8px;
+  background-color: blueviolet;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.decorSetList  .decorSetContainer:not(:first-child) {
+  margin-top: 10px;
+}
+
+.decorSetContainer button {
+  height: fit-content;
+  background-color: #9357cc;
+  color:#f0f0f0;
+}
+.decorSetContainer button:hover {
+  background-color: #622c96;
+}
+.decorSetCatalog {
+  margin-top: 10px;
+  background-color: #54368c;
+  border-radius: 8px;
+}
+.decorSetCatalog .decorSetTitle {
+  text-align: center;
+  border-radius: 8px 0px 18px 0px;
+  background: #9357cc;
+}
+.decorSetCatalog .catalogCategory {
+  padding: 5px 3px
+}
+.catalogItem {
+  padding: 5px 3px
+}
+.selectedItem {
+  background-color: #673ab7;
+}
+.itemBtns {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+
+}
+
+.decorSetTitle {
+  font-size: 18px;
+}
+
 .inputContainer {
   display: flex;
   justify-content: space-between;
@@ -92,6 +150,7 @@ padding: 10px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 15px;
+  font-weight: 600;
 }
 
 .applyBtn {

@@ -10,7 +10,7 @@ const Size = ({ curr, heightRef, widthRef, applySize }) => {
   };
 
   return (
-    <form className="windowSizeForm" onSubmit={apply}>
+    <form className="settingContainer" onSubmit={apply}>
       <h3 onClick={() => setHide(!hide)}>Window Size</h3>
       {!hide && (
         <>

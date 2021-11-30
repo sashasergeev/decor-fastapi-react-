@@ -1,10 +1,12 @@
 import React from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 
 import WinFrameBox from "./elements/WinFrameBox";
 import Wall from "./elements/Wall";
 import Glass from "./elements/Glass";
+
+import * as THREE from "three";
 
 const WindowCanvas = ({ winSize }) => {
   let { height, width } = winSize;
@@ -20,7 +22,11 @@ const WindowCanvas = ({ winSize }) => {
   const heightOfInnerVert = height - bigFrame * 2;
   return (
     <Canvas camera={{ position: [0, 3, 9], fov: 50, near: 0.01 }}>
-      <directionalLight color="#ACAAAA" position={[5.21, 9.101, 9.809]} />
+      <directionalLight
+        color="#FFFFFF"
+        intensity={1}
+        position={[-2.5, 5.4, 4.5]}
+      />
       <gridHelper />
       {/* big window frames * bottom - top - left - right */}
       <WinFrameBox
