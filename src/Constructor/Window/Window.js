@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import WindowCanvas from "./WIndowCanvas";
 import Size from "./settings/Size";
 import DecorSetting from "./settings/DecorSetting";
+import * as styled from "../styles";
 
 const Window = ({}) => {
   // win size settings
@@ -16,22 +17,20 @@ const Window = ({}) => {
   };
 
   return (
-    <div className="container">
-      <div className="sceneContainer">
-        <div className="scene">
-          <WindowCanvas winSize={windowSize} />
-        </div>
-        <div className="settings">
-          <Size
-            curr={windowSize}
-            heightRef={heightInput}
-            widthRef={widthInput}
-            applySize={applyWindowSize}
-          />
-          <DecorSetting />
-        </div>
-      </div>
-    </div>
+    <>
+      <styled.SceneBox>
+        <WindowCanvas winSize={windowSize} />
+      </styled.SceneBox>
+      <styled.SettingBox>
+        <Size
+          curr={windowSize}
+          heightRef={heightInput}
+          widthRef={widthInput}
+          applySize={applyWindowSize}
+        />
+        <DecorSetting />
+      </styled.SettingBox>
+    </>
   );
 };
 

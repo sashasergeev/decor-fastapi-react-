@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import * as styled from "../../styles";
 
 const CatalogList = ({ category }) => {
   const [item, setItem] = useState(false);
@@ -8,34 +9,29 @@ const CatalogList = ({ category }) => {
 
   return (
     <>
-      <div
-        className={
-          item === category + " 01" ? "catalogItem selectedItem" : "catalogItem"
-        }
+      <styled.Catalog.CategoryItem
+        selected={item === `${category} 01`}
         onClick={handleItemSelect}
       >
         {category} 01
-      </div>
-      <div
-        className={
-          item === category + " 02" ? "catalogItem selectedItem" : "catalogItem"
-        }
+      </styled.Catalog.CategoryItem>
+
+      <styled.Catalog.CategoryItem
+        selected={item === `${category} 02`}
         onClick={handleItemSelect}
       >
         {category} 02
-      </div>
-      <div
-        className={
-          item === category + " 03" ? "catalogItem selectedItem" : "catalogItem"
-        }
+      </styled.Catalog.CategoryItem>
+      <styled.Catalog.CategoryItem
+        selected={item === `${category} 03`}
         onClick={handleItemSelect}
       >
         {category} 03
-      </div>
-      <div className="itemBtns">
-        <button className="btn">Reset</button>
-        {item && <button className="btn">Apply</button>}
-      </div>
+      </styled.Catalog.CategoryItem>
+      <styled.Catalog.ButtonGroup>
+        <styled.Button.Warn>Reset</styled.Button.Warn>
+        {item && <styled.Button.Apply>Apply</styled.Button.Apply>}
+      </styled.Catalog.ButtonGroup>
     </>
   );
 };

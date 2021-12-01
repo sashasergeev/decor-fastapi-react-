@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Catalog from "./Catalog";
+import * as styled from "../../styles";
 
 const DecorSetting = () => {
   const [hide, setHide] = useState(false);
@@ -10,54 +11,58 @@ const DecorSetting = () => {
   const [bottom, setBottom] = useState(false);
 
   return (
-    <div className="settingContainer" action="">
-      <h3 onClick={() => setHide(!hide)}>Decor</h3>
+    <styled.SettingBoxList>
+      <styled.SettingTitle onClick={() => setHide(!hide)}>
+        Decor
+      </styled.SettingTitle>
       {!hide && !pick ? (
-        <div className="decorSetList">
-          <div className="decorSetContainer">
+        <>
+          <styled.DecorSetItem>
             <div>
-              <div className="decorSetTitle">Set Top</div>
+              <styled.DecorSetItemTitle>Set Top</styled.DecorSetItemTitle>
               {top ? <>Chosen Decor:</> : <>Not picked...</>}
             </div>
-            <button className="btn" onClick={() => setPick("Top")}>
+            <styled.Button.Info onClick={() => setPick("Top")}>
               {top ? "Change" : "Pick"}
-            </button>
-          </div>
-          <div className="decorSetContainer">
+            </styled.Button.Info>
+          </styled.DecorSetItem>
+          <styled.DecorSetItem>
             <div>
-              <div className="decorSetTitle">Set Sides</div>
+              <styled.DecorSetItemTitle>Set Sides</styled.DecorSetItemTitle>
               {side ? <>Chosen Decor:</> : <>Not picked...</>}
             </div>
-            <button className="btn" onClick={() => setPick("Side")}>
+            <styled.Button.Info onClick={() => setPick("Side")}>
               {side ? "Change" : "Pick"}
-            </button>
-          </div>
-          <div className="decorSetContainer">
+            </styled.Button.Info>
+          </styled.DecorSetItem>
+          <styled.DecorSetItem>
             <div>
-              <div className="decorSetTitle">Set Bottom</div>
+              <styled.DecorSetItemTitle>Set Bottom</styled.DecorSetItemTitle>
               {bottom ? <>Chosen Decor:</> : <>Not picked...</>}
             </div>
-            <button className="btn" onClick={() => setPick("Bottom")}>
+            <styled.Button.Info onClick={() => setPick("Bottom")}>
               {bottom ? "Change" : "Pick"}
-            </button>
-          </div>
-        </div>
+            </styled.Button.Info>
+          </styled.DecorSetItem>
+        </>
       ) : !hide && pick ? (
         <>
-          <div className="decorSetContainer">
+          <styled.DecorSetItem>
             <div>
-              <div className="decorSetTitle">Picking {pick}</div>
+              <styled.DecorSetItemTitle>
+                Picking {pick}
+              </styled.DecorSetItemTitle>
             </div>
-            <button className="btn" onClick={() => setPick(false)}>
+            <styled.Button.Warn onClick={() => setPick(false)}>
               Cancel
-            </button>
-          </div>
+            </styled.Button.Warn>
+          </styled.DecorSetItem>
           <Catalog />
         </>
       ) : (
         <></>
       )}
-    </div>
+    </styled.SettingBoxList>
   );
 };
 

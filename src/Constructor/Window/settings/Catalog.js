@@ -1,48 +1,38 @@
 import React, { useState } from "react";
 import CatalogList from "./CatalogList";
 
+import * as styled from "../../styles";
+
 const Catalog = ({}) => {
   const [category, setCategory] = useState(false);
 
   return (
-    <div className="decorSetCatalog">
-      <div className="decorSetTitle">
+    <styled.Catalog.Container>
+      <styled.Catalog.Title>
         <span onClick={() => setCategory(false)}>Catalog</span>
         {category && " > " + category}
-      </div>
+      </styled.Catalog.Title>
       {!category ? (
         <>
-          <div
-            className="catalogCategory"
-            onClick={() => setCategory("Nalichnik")}
-          >
+          <styled.Catalog.CategoryBox onClick={() => setCategory("Nalichnik")}>
             Nalichnik
-          </div>
-          <div
-            className="catalogCategory"
-            onClick={() => setCategory("Podokonnik")}
-          >
+          </styled.Catalog.CategoryBox>
+          <styled.Catalog.CategoryBox onClick={() => setCategory("Podokonnik")}>
             Podokonnik
-          </div>
-          <div
-            className="catalogCategory"
-            onClick={() => setCategory("Pojasa")}
-          >
+          </styled.Catalog.CategoryBox>
+          <styled.Catalog.CategoryBox onClick={() => setCategory("Pojasa")}>
             Pojasa
-          </div>
-          <div
-            className="catalogCategory"
-            onClick={() => setCategory("Column")}
-          >
+          </styled.Catalog.CategoryBox>
+          <styled.Catalog.CategoryBox onClick={() => setCategory("Column")}>
             Column
-          </div>
+          </styled.Catalog.CategoryBox>
         </>
       ) : (
         <>
           <CatalogList category={category} />
         </>
       )}
-    </div>
+    </styled.Catalog.Container>
   );
 };
 

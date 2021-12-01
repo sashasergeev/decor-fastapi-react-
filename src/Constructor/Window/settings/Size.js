@@ -1,20 +1,22 @@
 import React, { useState } from "react";
+import * as styled from "../../styles";
 
 const Size = ({ curr, heightRef, widthRef, applySize }) => {
   const [hide, setHide] = useState(false);
 
-  const apply = (e) => {
-    e.preventDefault();
+  const apply = () => {
     applySize();
     setHide(!hide);
   };
 
   return (
-    <form className="settingContainer" onSubmit={apply}>
-      <h3 onClick={() => setHide(!hide)}>Window Size</h3>
+    <styled.SettingBoxList>
+      <styled.SettingTitle onClick={() => setHide(!hide)}>
+        Window Size
+      </styled.SettingTitle>
       {!hide && (
         <>
-          <div className="inputContainer">
+          <styled.Input.Container>
             <label htmlFor="height">Height</label>
             <input
               type="number"
@@ -23,8 +25,8 @@ const Size = ({ curr, heightRef, widthRef, applySize }) => {
               defaultValue={curr.height}
               ref={heightRef}
             />
-          </div>
-          <div className="inputContainer">
+          </styled.Input.Container>
+          <styled.Input.Container>
             <label htmlFor="width">Width</label>
             <input
               type="number"
@@ -33,18 +35,16 @@ const Size = ({ curr, heightRef, widthRef, applySize }) => {
               defaultValue={curr.width}
               ref={widthRef}
             />
-          </div>
-          <button className="btn applyBtn" type="submit">
-            Apply
-          </button>
+          </styled.Input.Container>
+          <styled.Button.Apply onClick={apply}>Apply</styled.Button.Apply>
         </>
       )}
       {hide && (
-        <div className="winSizeDetails">
+        <styled.SizeInfo>
           h: {curr.height} cm, w: {curr.width} cm
-        </div>
+        </styled.SizeInfo>
       )}
-    </form>
+    </styled.SettingBoxList>
   );
 };
 
