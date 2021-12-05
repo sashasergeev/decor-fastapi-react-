@@ -1,8 +1,8 @@
-import React, { useState, useRef } from "react";
-import WindowCanvas from "./WIndowCanvas";
-import Size from "./settings/Size";
-import DecorSetting from "./settings/DecorSetting";
+import React, { useRef, useState } from "react";
 import * as styled from "../styles";
+import DecorSetting from "./settings/DecorSetting";
+import Size from "./settings/Size";
+import WindowCanvas from "./WIndowCanvas";
 
 const Window = ({}) => {
   // win size settings

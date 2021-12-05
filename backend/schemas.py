@@ -11,8 +11,15 @@ class ItemBase(BaseModel):
     model_3d: str
     price: int
 
+
 class ItemCreate(ItemBase):
     pass
+
+
+class ItemList(BaseModel):
+    id: int
+    category_id: int
+    image: str
 
 
 class Item(ItemBase):
@@ -40,12 +47,16 @@ class Usage(BaseModel):
 class CategoryBase(BaseModel):
     name: str
 
-    class Config:
-        orm_mode = True
-
 
 class CategoryCreate(CategoryBase):
     pass
+
+
+class CategoryList(CategoryBase):
+    id: int
+
+    class Config:
+        orm_mode = True
 
 
 class Category(CategoryBase):

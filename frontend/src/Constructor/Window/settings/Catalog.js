@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import CatalogList from "./CatalogList";
-
 import * as styled from "../../styles";
+import CatalogList from "./CatalogList";
 
 const Catalog = ({}) => {
   const [category, setCategory] = useState(false);
