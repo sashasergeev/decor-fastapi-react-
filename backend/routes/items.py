@@ -9,7 +9,7 @@ from sqlalchemy.orm.session import Session
 router = APIRouter(prefix="/item", tags=["Items"])
 
 
-@router.get("/all", response_model=List[schemas.ItemList])
+@router.get("/all", response_model=List[schemas.Item])
 def all(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     items = crud.get_items(db, skip=skip, limit=limit)
     return items
@@ -23,7 +23,7 @@ def show(item_id: int, db: Session = Depends(get_db)):
     return item
 
 
-@router.post("/", response_model=schemas.ItemCreate)
+@router.post("/", response_model=schemas.Item)
 def create(item: schemas.ItemCreate, db: Session = Depends(get_db)):
     return crud.create_item(db=db, item=item)
 

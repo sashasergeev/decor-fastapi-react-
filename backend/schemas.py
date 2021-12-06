@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import Any, List, Optional
 from pydantic import BaseModel
 
 
@@ -7,24 +7,18 @@ class ItemBase(BaseModel):
     name: str
     height: int
     width: int
-    image: str
-    model_3d: str
-    price: int
+    # price: int
+    category_id: Optional[int]
 
 
 class ItemCreate(ItemBase):
     pass
 
 
-class ItemList(BaseModel):
-    id: int
-    category_id: int
-    image: str
-
-
 class Item(ItemBase):
     id: int
-    category_id: int
+    image: Optional[str] = None
+    model_3d: Optional[str] = None
 
     class Config:
         orm_mode = True

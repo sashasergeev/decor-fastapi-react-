@@ -10,11 +10,6 @@ class BasicColumnMixin(object):
     name = Column(String(40), unique=True)
 
 
-# class CategoryToUsageLink(Base):
-#     __tablename__ = "CategoryToUsageLink"
-#     category_id = Column(Integer, ForeignKey("category.id"), primary_key=True)
-#     usage_id = Column(Integer, ForeignKey("category_usage.id"), primary_key=True)
-
 category_to_usage = Table("category_to_usage", Base.metadata, 
                         Column("category_id", ForeignKey("category.id"), primary_key=True),
                         Column("usage_id", ForeignKey("category_usage.id"), primary_key=True))
