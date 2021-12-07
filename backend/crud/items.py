@@ -1,7 +1,11 @@
+from fastapi.datastructures import UploadFile
+from fastapi.param_functions import File
 from sqlalchemy.orm import Session
 
 import models
 import schemas
+
+import shutil
 
 
 # Items
@@ -11,6 +15,22 @@ def get_items(db: Session, skip: int = 0, limit: int = 100):
 
 def get_item(db: Session, item_id: int):
     return db.query(models.DecorItem).filter(models.DecorItem.id == item_id).first()
+
+
+def upload_static(db: Session, item_id: str, image: UploadFile = File(...), model: UploadFile = File(...)):
+    item = db.query(models.DecorItem).filter(models.DecorItem.id == item_id).first()
+    if item is None:
+        return {"detail": "Incorrect item credentials."}
+    
+    image.filename = item_id + "." + image.filename.rsplit(".", 1)[1]
+    with open(f"static/images/{image.filename}", "wb") as buffer:
+        shutil.copyfileobj(image.file, buffer)
+    
+    model.filename = item_id + "." + model.filename.rsplit(".", 1)[1]
+    with open(f"static/models/{model.filename}", "wb") as buffer:
+        shutil.copyfileobj(model.file, buffer)
+    
+    return {"detail": "static files uploaded"}
 
 
 def create_item(db: Session, item: schemas.ItemCreate):
