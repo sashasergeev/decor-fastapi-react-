@@ -1,7 +1,7 @@
 from sqlalchemy import Column, String, Integer, ForeignKey
 from sqlalchemy.orm import relationship
-from sqlalchemy.sql.expression import column
 from sqlalchemy.sql.schema import Table
+from sqlalchemy_utils.types.choice import ChoiceType
 
 from database import Base
 
@@ -16,7 +16,16 @@ category_to_usage = Table("category_to_usage", Base.metadata,
 
 
 class Usage(BasicColumnMixin, Base):
+    APPLIED_TO = [
+        (u'окно', u'Окно'),
+        (u'дверь', u'Дверь'),
+    ]
     __tablename__ = "category_usage"
+    applied = Column(ChoiceType(APPLIED_TO))
+
+    @property
+    def applies(self):
+        return self.applied.value
 
 
 class Category(BasicColumnMixin, Base):
@@ -37,4 +46,4 @@ class DecorItem(BasicColumnMixin, Base):
     # Store file for 3d as link
     model_3d = Column(String)
 
-    price = column(Integer)
+    price = Column(Integer)

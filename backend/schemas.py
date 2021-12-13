@@ -23,15 +23,19 @@ class Item(ItemBase):
     class Config:
         orm_mode = True
 
+
 # Usage of categories
 class UsageBase(BaseModel):
     name: str
 
-class UsageCreate(UsageBase):
-    pass
 
-class Usage(BaseModel):
+class UsageCreate(UsageBase):
+    applied: str
+
+
+class Usage(UsageBase):
     id: int
+    applies: str
 
     class Config:
         orm_mode = True

@@ -1,14 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Catalog from "./Catalog";
 import * as styled from "../../styles";
+import axios from "axios";
 
 const DecorSetting = () => {
   const [hide, setHide] = useState(false);
   const [pick, setPick] = useState(false);
 
-  const [top, setTop] = useState(false);
-  const [side, setSide] = useState(false);
-  const [bottom, setBottom] = useState(false);
+  const [elements, setElements] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://127.0.0.1:8000/usage/all")
+      .then((res) =>
+        setElements(
+          res.data
+            .filter((e) => e.applies === "Окно")
+            .map((e) => ({ ...e, chosen: false }))
+        )
+      );
+  }, []);
 
   return (
     <styled.SettingBoxList>
@@ -16,45 +27,27 @@ const DecorSetting = () => {
         Decor
       </styled.SettingTitle>
       {!hide && !pick ? (
-        <>
-          <styled.DecorSetItem>
+        elements.map((e, inx) => (
+          <styled.DecorSetItem key={inx}>
             <div>
-              <styled.DecorSetItemTitle>Set Top</styled.DecorSetItemTitle>
-              {top ? <>Chosen Decor:</> : <>Not picked...</>}
+              <styled.DecorSetItemTitle>{e.name}</styled.DecorSetItemTitle>
+              {e.chosen ? <>Выбранный декор:</> : <>Не выбрано...</>}
             </div>
-            <styled.Button.Info onClick={() => setPick("Top")}>
-              {top ? "Change" : "Pick"}
+            <styled.Button.Info onClick={() => setPick(e.name)}>
+              {e.chosen ? "Поменять" : "Выбрать"}
             </styled.Button.Info>
           </styled.DecorSetItem>
-          <styled.DecorSetItem>
-            <div>
-              <styled.DecorSetItemTitle>Set Sides</styled.DecorSetItemTitle>
-              {side ? <>Chosen Decor:</> : <>Not picked...</>}
-            </div>
-            <styled.Button.Info onClick={() => setPick("Side")}>
-              {side ? "Change" : "Pick"}
-            </styled.Button.Info>
-          </styled.DecorSetItem>
-          <styled.DecorSetItem>
-            <div>
-              <styled.DecorSetItemTitle>Set Bottom</styled.DecorSetItemTitle>
-              {bottom ? <>Chosen Decor:</> : <>Not picked...</>}
-            </div>
-            <styled.Button.Info onClick={() => setPick("Bottom")}>
-              {bottom ? "Change" : "Pick"}
-            </styled.Button.Info>
-          </styled.DecorSetItem>
-        </>
+        ))
       ) : !hide && pick ? (
         <>
           <styled.DecorSetItem>
             <div>
               <styled.DecorSetItemTitle>
-                Picking {pick}
+                Выберите: {pick}
               </styled.DecorSetItemTitle>
             </div>
             <styled.Button.Warn onClick={() => setPick(false)}>
-              Cancel
+              Назад
             </styled.Button.Warn>
           </styled.DecorSetItem>
           <Catalog />

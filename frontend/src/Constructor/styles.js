@@ -109,6 +109,8 @@ export const Catalog = {
     margin-top: 10px;
     background-color: #54368c;
     border-radius: 8px;
+    max-height: 200px;
+    overflow: overlay;
   `,
   Title: styled.div`
     text-align: center;

@@ -5,7 +5,7 @@ import schemas
 
 
 def get_usages(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Decorusage).offset(skip).limit(limit).all()
+    return db.query(models.Usage).offset(skip).limit(limit).all()
 
 
 def get_usage(db: Session, usage_id: int):
@@ -21,6 +21,6 @@ def create_usage(db: Session, usage: schemas.UsageCreate):
 
 
 def delete_usage(db: Session, usage_id: int):
-    db.query(models.Usage).filter(models.Usage.id == usage_id)
+    db.query(models.Usage).filter(models.Usage.id == usage_id).delete()
     db.commit()
     return {"Status": "Usage Deleted"}
