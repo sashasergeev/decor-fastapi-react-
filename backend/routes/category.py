@@ -15,6 +15,11 @@ def all(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return categories
 
 
+@router.get("/usage", response_model=List[schemas.CategoryList])
+def category_by_usage(applies: str, usage: str, db: Session = Depends(get_db)):
+    return crud.category_by_usage(db=db, applies=applies, usage=usage)
+
+
 @router.get("/{cat_id}", response_model=schemas.Category)
 def show(cat_id: int, db: Session = Depends(get_db)):
     category = crud.get_category(db, cat_id)
@@ -26,6 +31,18 @@ def show(cat_id: int, db: Session = Depends(get_db)):
 @router.post("/", response_model=schemas.Category)
 def create(category: schemas.CategoryCreate, db: Session = Depends(get_db)):
     return crud.create_category(db=db, category=category)
+
+
+
+
+@router.put("/usage", response_model=schemas.Category)
+def add_usage(body: schemas.CategoryUsage, db: Session = Depends(get_db)):
+    return crud.add_usage(db=db, body=body)
+
+
+@router.delete("/usage", response_model=schemas.Category)
+def delete_usage(body: schemas.CategoryUsage, db: Session = Depends(get_db)):
+    return crud.remove_usage(db=db, body=body)
 
 
 @router.delete("/{cat_id}")

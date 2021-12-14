@@ -14,11 +14,44 @@ def get_category(db: Session, cat_id: int):
 
 
 def create_category(db: Session, category: schemas.CategoryCreate):
-    category = models.Category(name=category.name)
-    db.add(category)
+    create_cat = models.Category(name=category.name)
+    db.add(create_cat)
     db.commit()
-    db.refresh(category)
-    return category
+    db.refresh(create_cat)
+    
+    for use_id in category.usage_ids:
+        category_usage = models.category_to_usage.insert().values(category_id=create_cat.id, usage_id=use_id)
+        db.execute(category_usage)
+        db.commit()
+
+    return db.query(models.Category).filter(models.Category.id == create_cat.id).first()
+
+
+def category_by_usage(db: Session, applies: str, usage: str):
+    usages = (
+                db.query(models.Usage).filter(models.Usage.name == usage)
+                    .filter(models.Usage.applied == applies).first().category
+            )
+    return usages
+
+    # return db.query(models.Category).filter(models.Category)
+
+
+def add_usage(db: Session, body: schemas.CategoryUsage):
+    category_usage = models.category_to_usage.insert().values(category_id=body.category_id, usage_id=body.usage_id)
+    db.execute(category_usage)
+    db.commit()
+    return db.query(models.Category).filter(models.Category.id == body.category_id).first()
+
+
+def remove_usage(db: Session, body: schemas.CategoryUsage):
+    category_usage = models.category_to_usage.delete().where(
+                                    models.category_to_usage.c.category_id==body.category_id,
+                                    models.category_to_usage.c.usage_id==body.usage_id)
+    db.execute(category_usage) 
+    db.commit()
+    return db.query(models.Category).filter(models.Category.id == body.category_id).first()
+
 
 
 def delete_category(db: Session, cat_id: int):

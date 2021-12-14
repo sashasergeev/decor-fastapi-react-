@@ -10,8 +10,10 @@ const DecorSetting = () => {
   const [elements, setElements] = useState([]);
 
   useEffect(() => {
+    const url = "http://127.0.0.1:8000/usage/all";
+
     axios
-      .get("http://127.0.0.1:8000/usage/all")
+      .get(url)
       .then((res) =>
         setElements(
           res.data
@@ -50,7 +52,7 @@ const DecorSetting = () => {
               Назад
             </styled.Button.Warn>
           </styled.DecorSetItem>
-          <Catalog />
+          <Catalog usage={pick} applies={"Окно"} />
         </>
       ) : (
         <></>

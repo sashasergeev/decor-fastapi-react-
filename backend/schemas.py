@@ -47,11 +47,12 @@ class CategoryBase(BaseModel):
 
 
 class CategoryCreate(CategoryBase):
-    pass
-
+    usage_ids: List[int] = []
+        
 
 class CategoryList(CategoryBase):
     id: int
+    items: List[Item] = []
 
     class Config:
         orm_mode = True
@@ -64,3 +65,8 @@ class Category(CategoryBase):
 
     class Config:
         orm_mode = True
+
+
+class CategoryUsage(BaseModel):
+    category_id: int
+    usage_id: int

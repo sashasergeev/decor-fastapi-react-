@@ -3,14 +3,16 @@ import React, { useEffect, useState } from "react";
 import * as styled from "../../styles";
 import CatalogList from "./CatalogList";
 
-const Catalog = ({}) => {
+const Catalog = ({ usage, applies }) => {
   const [category, setCategory] = useState(false);
   const [categoriesList, setCategoriesList] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/category/all")
-      .then((res) => setCategoriesList(res.data));
+    const url = `http://127.0.0.1:8000/category/usage
+                      ?applies=${applies.toLowerCase()}
+                      &usage=${usage}`;
+
+    axios.get(url).then((res) => setCategoriesList(res.data));
   }, []);
 
   return (
