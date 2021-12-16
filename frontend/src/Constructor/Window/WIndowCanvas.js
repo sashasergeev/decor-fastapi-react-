@@ -1,14 +1,15 @@
-import React from "react";
-import { Canvas, useThree } from "@react-three/fiber";
+import React, { Suspense } from "react";
+import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 
 import WinFrameBox from "./elements/WinFrameBox";
 import Wall from "./elements/Wall";
 import Glass from "./elements/Glass";
+import DecorItem from "./elements/DecorItem";
 
-import * as THREE from "three";
+// import * as THREE from "three";
 
-const WindowCanvas = ({ winSize }) => {
+const WindowCanvas = ({ winSize, decor }) => {
   let { height, width } = winSize;
   width = width / 50; // translate cm to units in 3d
   height = height / 50; // translate cm to units in 3d
@@ -20,6 +21,11 @@ const WindowCanvas = ({ winSize }) => {
   const vertMiddlePoint = height / 2 + lowestPoint; // позиция середины для элементов по y оси
   const widthOfInnersHor = width - bigFrame * 2;
   const heightOfInnerVert = height - bigFrame * 2;
+
+  const topDecor = decor.filter((e) => e.name === "Верх")[0]?.chosen;
+  const middleDecor = decor.filter((e) => e.name === "Середина")[0]?.chosen;
+  const bottomDecor = decor.filter((e) => e.name === "Низ")[0]?.chosen;
+
   return (
     <Canvas camera={{ position: [0, 3, 9], fov: 50, near: 0.01 }}>
       <directionalLight
@@ -28,27 +34,101 @@ const WindowCanvas = ({ winSize }) => {
         position={[-2.5, 5.4, 4.5]}
       />
       <gridHelper />
-      {/* big window frames * bottom - top - left - right */}
-      <WinFrameBox
-        position={[0, 1.5, 0]}
-        variant="big"
-        size={[width, bigFrame, 0.15]}
-      />
-      <WinFrameBox
-        position={[0, upperMiddlePoint, 0]}
-        variant="big"
-        size={[width, bigFrame, 0.15]}
-      />
-      <WinFrameBox
-        position={[-(width / 2 - bigFrame / 2), vertMiddlePoint, 0]}
-        variant="big"
-        size={[bigFrame, height, 0.15]}
-      />
-      <WinFrameBox
-        position={[width / 2 - bigFrame / 2, vertMiddlePoint, 0]}
-        variant="big"
-        size={[bigFrame, height, 0.15]}
-      />
+
+      {/* big window frames */}
+      {/* ВЕРХ */}
+      {topDecor ? (
+        <Suspense fallback={null}>
+          <DecorItem
+            position={[0, lowestPoint + height - topDecor.height / 100, 0.096]}
+            url={topDecor.model_3d}
+            size={[
+              width - topDecor.height / 100,
+              topDecor.height / 100,
+              topDecor.width / 100,
+            ]}
+          />
+        </Suspense>
+      ) : (
+        <WinFrameBox
+          position={[0, upperMiddlePoint, 0]}
+          variant="big"
+          size={[width, bigFrame, 0.15]}
+        />
+      )}
+      {/* СТОРОНЫ */}
+      {middleDecor ? (
+        <>
+          <Suspense fallback={null}>
+            <DecorItem
+              position={[
+                -(width / 2 - middleDecor.height / 100),
+                topDecor
+                  ? vertMiddlePoint + topDecor.height / 200
+                  : vertMiddlePoint,
+                0.096,
+              ]}
+              url={middleDecor.model_3d}
+              size={[
+                topDecor
+                  ? height - topDecor.height / 50
+                  : height - middleDecor.height / 100,
+                middleDecor.height / 100,
+                middleDecor.width / 100,
+              ]}
+              rotate={1.5707963268}
+            />
+            <DecorItem
+              position={[
+                width / 2 - middleDecor.height / 100,
+                topDecor
+                  ? vertMiddlePoint + topDecor.height / 200
+                  : vertMiddlePoint,
+                0.096,
+              ]}
+              url={middleDecor.model_3d}
+              size={[
+                topDecor
+                  ? height - topDecor.height / 50
+                  : height - middleDecor.height / 100,
+                middleDecor.height / 100,
+                middleDecor.width / 100,
+              ]}
+              rotate={-1.5707963268}
+            />
+          </Suspense>
+        </>
+      ) : (
+        <>
+          <WinFrameBox
+            position={[-(width / 2 - bigFrame / 2), vertMiddlePoint, 0]}
+            variant="big"
+            size={[bigFrame, height, 0.15]}
+          />
+          <WinFrameBox
+            position={[width / 2 - bigFrame / 2, vertMiddlePoint, 0]}
+            variant="big"
+            size={[bigFrame, height, 0.15]}
+          />
+        </>
+      )}
+
+      {/* НИЗ */}
+      {bottomDecor ? (
+        <Suspense fallback={null}>
+          <DecorItem
+            position={[0, 1.55, 0.096]}
+            url={bottomDecor.model_3d}
+            size={[width, bottomDecor.height / 100, bottomDecor.width / 100]}
+          />
+        </Suspense>
+      ) : (
+        <WinFrameBox
+          position={[0, 1.5, 0]}
+          variant="big"
+          size={[width, bigFrame, 0.15]}
+        />
+      )}
 
       {/* small details on window * bottom - top - left - right */}
       <WinFrameBox

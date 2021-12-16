@@ -7,7 +7,7 @@ class ItemBase(BaseModel):
     name: str
     height: int
     width: int
-    # price: int
+    price: int
     category_id: Optional[int]
 
 

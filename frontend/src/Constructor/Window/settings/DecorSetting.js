@@ -1,27 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Catalog from "./Catalog";
 import * as styled from "../../styles";
-import axios from "axios";
 
-const DecorSetting = () => {
+const DecorSetting = ({ elements, changeElement }) => {
   const [hide, setHide] = useState(false);
   const [pick, setPick] = useState(false);
 
-  const [elements, setElements] = useState([]);
-
-  useEffect(() => {
-    const url = "http://127.0.0.1:8000/usage/all";
-
-    axios
-      .get(url)
-      .then((res) =>
-        setElements(
-          res.data
-            .filter((e) => e.applies === "Окно")
-            .map((e) => ({ ...e, chosen: false }))
-        )
-      );
-  }, []);
+  const clear = (item, usage) => {
+    changeElement(item, usage);
+    setHide(false);
+    setPick(false);
+  };
 
   return (
     <styled.SettingBoxList>
@@ -33,7 +22,11 @@ const DecorSetting = () => {
           <styled.DecorSetItem key={inx}>
             <div>
               <styled.DecorSetItemTitle>{e.name}</styled.DecorSetItemTitle>
-              {e.chosen ? <>Выбранный декор:</> : <>Не выбрано...</>}
+              {e.chosen ? (
+                <>Выбранный декор: {e.chosen.name}</>
+              ) : (
+                <>Не выбрано...</>
+              )}
             </div>
             <styled.Button.Info onClick={() => setPick(e.name)}>
               {e.chosen ? "Поменять" : "Выбрать"}
@@ -52,7 +45,7 @@ const DecorSetting = () => {
               Назад
             </styled.Button.Warn>
           </styled.DecorSetItem>
-          <Catalog usage={pick} applies={"Окно"} />
+          <Catalog changeElement={clear} usage={pick} applies={"Окно"} />
         </>
       ) : (
         <></>

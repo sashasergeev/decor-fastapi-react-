@@ -25,3 +25,5 @@ yarn-error.log*
 backend/__pycache__
 __pycache__
 .vscode
+
+static/

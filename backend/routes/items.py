@@ -31,7 +31,7 @@ def show(item_id: int, db: Session = Depends(get_db)):
 
 
 @router.post("/")
-def create(item: schemas.ItemCreate = Form(...), db: Session = Depends(get_db)):
+def create(item: schemas.ItemCreate, db: Session = Depends(get_db)):
     return crud.create_item(db=db, item=item)
 
 
