@@ -25,7 +25,7 @@ const WindowCanvas = ({ winSize, decor }) => {
   const topDecor = decor.filter((e) => e.name === "Верх")[0]?.chosen;
   const middleDecor = decor.filter((e) => e.name === "Середина")[0]?.chosen;
   const bottomDecor = decor.filter((e) => e.name === "Низ")[0]?.chosen;
-
+  console.log(decor);
   return (
     <Canvas camera={{ position: [3, 5, 10], fov: 40, near: 0.01 }}>
       <directionalLight
@@ -40,10 +40,14 @@ const WindowCanvas = ({ winSize, decor }) => {
       {topDecor ? (
         <Suspense fallback={null}>
           <DecorItem
-            position={[0, lowestPoint + height - topDecor.height / 100, 0.096]}
+            position={[
+              0,
+              lowestPoint + height - bigFrame + topDecor.height / 200,
+              topDecor.width / 200,
+            ]}
             url={topDecor.model_3d}
             size={[
-              width - topDecor.height / 100,
+              width - bigFrame * 2 + topDecor.height / 50,
               topDecor.height / 100,
               topDecor.width / 100,
             ]}
@@ -62,34 +66,36 @@ const WindowCanvas = ({ winSize, decor }) => {
           <Suspense fallback={null}>
             <DecorItem
               position={[
-                -(width / 2 - middleDecor.height / 100),
+                -(width / 2 - bigFrame) - middleDecor.height / 200,
                 topDecor
                   ? vertMiddlePoint + topDecor.height / 200
                   : vertMiddlePoint,
-                0.096,
+                middleDecor.width / 200,
               ]}
               url={middleDecor.model_3d}
               size={[
                 topDecor
-                  ? height - topDecor.height / 50
+                  ? heightOfInnerVert + topDecor.height / 100
                   : height - middleDecor.height / 100,
                 middleDecor.height / 100,
                 middleDecor.width / 100,
               ]}
               rotate={1.5707963268}
             />
+          </Suspense>
+          <Suspense fallback={null}>
             <DecorItem
               position={[
-                width / 2 - middleDecor.height / 100,
+                width / 2 - bigFrame + middleDecor.height / 200,
                 topDecor
                   ? vertMiddlePoint + topDecor.height / 200
                   : vertMiddlePoint,
-                0.096,
+                middleDecor.width / 200,
               ]}
               url={middleDecor.model_3d}
               size={[
                 topDecor
-                  ? height - topDecor.height / 50
+                  ? heightOfInnerVert + topDecor.height / 100
                   : height - middleDecor.height / 100,
                 middleDecor.height / 100,
                 middleDecor.width / 100,
@@ -117,7 +123,11 @@ const WindowCanvas = ({ winSize, decor }) => {
       {bottomDecor ? (
         <Suspense fallback={null}>
           <DecorItem
-            position={[0, 1.55, 0.096]}
+            position={[
+              0,
+              1.6 - bottomDecor.height / 200,
+              bottomDecor.width / 200,
+            ]}
             url={bottomDecor.model_3d}
             size={[width, bottomDecor.height / 100, bottomDecor.width / 100]}
           />
@@ -132,46 +142,46 @@ const WindowCanvas = ({ winSize, decor }) => {
 
       {/* small details on window * bottom - top - left - right */}
       <WinFrameBox
-        position={[0, lowestPoint + bigFrame + 0.025, 0.046]}
+        position={[0, lowestPoint + bigFrame + 0.025, 0]}
         variant="small"
         size={[widthOfInnersHor, 0.05, 0.05]}
       />
       <WinFrameBox
-        position={[0, upperMiddlePoint - bigFrame / 2 - 0.025, 0.046]}
+        position={[0, upperMiddlePoint - bigFrame / 2 - 0.025, 0]}
         variant="small"
         size={[widthOfInnersHor, 0.05, 0.05]}
       />
       <WinFrameBox
-        position={[-(width / 2) + bigFrame + 0.025, vertMiddlePoint, 0.046]}
+        position={[-(width / 2) + bigFrame + 0.025, vertMiddlePoint, 0]}
         variant="small"
         size={[0.05, heightOfInnerVert, 0.05]}
       />
       <WinFrameBox
-        position={[width / 2 - bigFrame - 0.025, vertMiddlePoint, 0.046]}
+        position={[width / 2 - bigFrame - 0.025, vertMiddlePoint, 0]}
         variant="small"
         size={[0.05, heightOfInnerVert, 0.05]}
       />
 
       {/* sticks in between glass * vert - hor */}
       <WinFrameBox
-        position={[0, vertMiddlePoint, 0.046]}
+        position={[0, vertMiddlePoint, 0]}
         variant="small"
         size={[0.025, heightOfInnerVert, 0.05]}
       />
       <WinFrameBox
-        position={[0, vertMiddlePoint, 0.046]}
+        position={[0, vertMiddlePoint, 0]}
         variant="small"
         size={[widthOfInnersHor, 0.025, 0.05]}
       />
 
       {/* glass */}
       <Glass
-        position={[0, vertMiddlePoint, 0.05]}
+        position={[0, vertMiddlePoint, 0]}
         size={[widthOfInnersHor, heightOfInnerVert, 0.01]}
       />
 
       {/* PLANE AS WALL */}
-      <Wall position={[0, 2.5, 0.04]} size={[10, 5, 1]} />
+      <Wall position={[0, 2.5, 0]} size={[10, 5, 1]} />
 
       {/* make it interactive */}
       <OrbitControls makeDefault dampingFactor={0.3} />
