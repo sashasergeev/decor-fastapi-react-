@@ -106,7 +106,7 @@ export const Button = {
 
 export const Catalog = {
   Container: styled.div`
-    margin-top: 10px;
+    /* margin-top: 10px; */
     background-color: #54368c;
     border-radius: 8px;
     max-height: 200px;
@@ -117,6 +117,7 @@ export const Catalog = {
     border-radius: 8px 0px 18px 0px;
     background: #9357cc;
     padding: 5px;
+    margin-top: 15px;
   `,
   CategoryBox: styled.div`
     padding: 5px 3px;
