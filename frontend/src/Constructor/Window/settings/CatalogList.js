@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, Suspense, useRef } from "react";
 import * as styled from "../../styles";
 
 import PreviewItem from "../elements/PreviewItem";
@@ -9,6 +9,9 @@ const CatalogList = ({ category, usage, changeElement }) => {
   const [item, setItem] = useState(false);
   const [items, setItems] = useState([]);
 
+  const customHeightRef = useRef();
+  const customWidthRef = useRef();
+
   useEffect(() => {
     const url = `http://127.0.0.1:8000/category/${category.id}`;
 
@@ -18,8 +21,17 @@ const CatalogList = ({ category, usage, changeElement }) => {
   const handleItemSelect = (e) =>
     setItem(e.target.innerHTML === item ? false : e.target.innerHTML);
 
-  const handleItem = () =>
-    changeElement(items.filter((e) => e.name === item)[0], usage);
+  const decor = item ? items.filter((e) => e.name === item)[0] : undefined;
+
+  const handleItem = () => {
+    const height = customHeightRef.current.value;
+    const width = customWidthRef.current.value;
+    if (height !== decor.height || width !== decor.width) {
+      decor.height = height;
+      decor.width = width;
+    }
+    changeElement(decor, usage);
+  };
 
   return (
     <>
@@ -38,7 +50,31 @@ const CatalogList = ({ category, usage, changeElement }) => {
 
       {/* PREVIEW OF ITEM */}
       <Suspense fallback={null}>
-        {item && <PreviewItem item={items.filter((e) => e.name === item)[0]} />}
+        {item && (
+          <>
+            <styled.Input.Container>
+              <label htmlFor="height">Высота</label>
+              <input
+                type="text"
+                id="height"
+                name="height"
+                defaultValue={decor.height}
+                ref={customHeightRef}
+              />
+            </styled.Input.Container>
+            <styled.Input.Container>
+              <label htmlFor="width">Ширина</label>
+              <input
+                type="text"
+                id="width"
+                name="width"
+                defaultValue={decor.width}
+                ref={customWidthRef}
+              />
+            </styled.Input.Container>
+            <PreviewItem item={decor} />
+          </>
+        )}
       </Suspense>
 
       {/* BUTTONS */}
