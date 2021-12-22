@@ -32,7 +32,7 @@ const GlobalStyle = createGlobalStyle`
       /* font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, ubuntu, roboto, noto, segoe ui, arial,
           sans-serif; */
       color: white;
-      background: #54368C;
+      background: #cac0db;
     }
 `;
 

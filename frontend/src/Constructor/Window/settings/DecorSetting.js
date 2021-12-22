@@ -22,11 +22,7 @@ const DecorSetting = ({ elements, changeElement }) => {
           <styled.DecorSetItem key={inx}>
             <div>
               <styled.DecorSetItemTitle>{e.name}</styled.DecorSetItemTitle>
-              {e.chosen ? (
-                <>Выбранный декор: {e.chosen.name}</>
-              ) : (
-                <>Не выбрано...</>
-              )}
+              {e.chosen ? <>Выбрано: {e.chosen.name}</> : <>Не выбрано...</>}
             </div>
             <styled.Button.Info onClick={() => setPick(e.name)}>
               {e.chosen ? "Поменять" : "Выбрать"}

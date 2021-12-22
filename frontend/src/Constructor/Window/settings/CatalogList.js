@@ -2,7 +2,6 @@ import React, { useState, useEffect, Suspense } from "react";
 import * as styled from "../../styles";
 
 import PreviewItem from "../elements/PreviewItem";
-import { Canvas } from "@react-three/fiber";
 
 import axios from "axios";
 

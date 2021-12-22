@@ -5,7 +5,7 @@ const Wall = ({ position, size }) => {
     <mesh position={position}>
       <planeGeometry args={size} />
       <meshStandardMaterial
-        color={"#5F53AC"}
+        color={"#99a5ae"}
         transparent={true}
         emissive={"#000"}
         emissiveIntensity={1}

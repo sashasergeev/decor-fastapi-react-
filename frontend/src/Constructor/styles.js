@@ -12,10 +12,6 @@ export const ConstructorContainer = styled.div`
 export const SceneContainer = styled.div`
   display: flex;
   justify-content: center;
-  width: 80vw;
-  height: 60vh;
-  border-radius: 10px;
-  background-color: #673ab7;
   padding: 10px;
 `;
 
@@ -39,7 +35,7 @@ export const SettingBox = styled.div`
 `;
 
 export const SettingBoxList = styled.div`
-  background-color: #51445d;
+  background-color: #7867be;
   padding: 8px;
   border-radius: 8px;
   width: 250px;
@@ -58,7 +54,7 @@ export const SizeInfo = styled.div`
 
 export const DecorSetItem = styled.div`
   padding: 8px;
-  background-color: blueviolet;
+  background-color: #63509d;
   border-radius: 8px;
   display: flex;
   justify-content: space-between;
