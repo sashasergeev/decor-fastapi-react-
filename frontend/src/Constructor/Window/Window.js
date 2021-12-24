@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, Suspense } from "react";
 import * as styled from "../styles";
 import DecorSetting from "./settings/DecorSetting";
 import Size from "./settings/Size";
@@ -50,7 +50,9 @@ const Window = () => {
   return (
     <>
       <styled.SceneBox>
-        <WindowCanvas decor={elements} winSize={windowSize} />
+        <Suspense fallback={null}>
+          <WindowCanvas decor={elements} winSize={windowSize} />
+        </Suspense>
       </styled.SceneBox>
 
       <styled.SettingBox>

@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 
@@ -33,26 +33,25 @@ const WindowCanvas = ({ winSize, decor }) => {
         intensity={1}
         position={[-2.5, 5.4, 4.5]}
       />
+      <ambientLight intensity={0.5} />
       <gridHelper />
 
       {/* big window frames */}
       {/* ВЕРХ */}
       {topDecor ? (
-        <Suspense fallback={null}>
-          <DecorItem
-            position={[
-              0,
-              lowestPoint + height - bigFrame + topDecor.height / 200,
-              topDecor.width / 200,
-            ]}
-            url={topDecor.model_3d}
-            size={[
-              width - bigFrame * 2 + topDecor.height / 50,
-              topDecor.height / 100,
-              topDecor.width / 100,
-            ]}
-          />
-        </Suspense>
+        <DecorItem
+          position={[
+            0,
+            lowestPoint + height - bigFrame + topDecor.height / 200,
+            topDecor.width / 200,
+          ]}
+          url={topDecor.model_3d}
+          size={[
+            width - bigFrame * 2 + topDecor.height / 50,
+            topDecor.height / 100,
+            topDecor.width / 100,
+          ]}
+        />
       ) : (
         <WinFrameBox
           position={[0, upperMiddlePoint, 0]}
@@ -63,46 +62,42 @@ const WindowCanvas = ({ winSize, decor }) => {
       {/* СТОРОНЫ */}
       {middleDecor ? (
         <>
-          <Suspense fallback={null}>
-            <DecorItem
-              position={[
-                -(width / 2 - bigFrame) - middleDecor.height / 200,
-                topDecor
-                  ? vertMiddlePoint + topDecor.height / 200
-                  : vertMiddlePoint,
-                middleDecor.width / 200,
-              ]}
-              url={middleDecor.model_3d}
-              size={[
-                topDecor
-                  ? heightOfInnerVert + topDecor.height / 100
-                  : height - middleDecor.height / 100,
-                middleDecor.height / 100,
-                middleDecor.width / 100,
-              ]}
-              rotate={1.5707963268}
-            />
-          </Suspense>
-          <Suspense fallback={null}>
-            <DecorItem
-              position={[
-                width / 2 - bigFrame + middleDecor.height / 200,
-                topDecor
-                  ? vertMiddlePoint + topDecor.height / 200
-                  : vertMiddlePoint,
-                middleDecor.width / 200,
-              ]}
-              url={middleDecor.model_3d}
-              size={[
-                topDecor
-                  ? heightOfInnerVert + topDecor.height / 100
-                  : height - middleDecor.height / 100,
-                middleDecor.height / 100,
-                middleDecor.width / 100,
-              ]}
-              rotate={-1.5707963268}
-            />
-          </Suspense>
+          <DecorItem
+            position={[
+              -(width / 2 - bigFrame) - middleDecor.height / 200,
+              topDecor
+                ? vertMiddlePoint + topDecor.height / 200
+                : vertMiddlePoint,
+              middleDecor.width / 200,
+            ]}
+            url={middleDecor.model_3d}
+            size={[
+              topDecor
+                ? heightOfInnerVert + topDecor.height / 100
+                : height - middleDecor.height / 100,
+              middleDecor.height / 100,
+              middleDecor.width / 100,
+            ]}
+            rotate={1.5707963268}
+          />
+          <DecorItem
+            position={[
+              width / 2 - bigFrame + middleDecor.height / 200,
+              topDecor
+                ? vertMiddlePoint + topDecor.height / 200
+                : vertMiddlePoint,
+              middleDecor.width / 200,
+            ]}
+            url={middleDecor.model_3d}
+            size={[
+              topDecor
+                ? heightOfInnerVert + topDecor.height / 100
+                : height - middleDecor.height / 100,
+              middleDecor.height / 100,
+              middleDecor.width / 100,
+            ]}
+            rotate={-1.5707963268}
+          />
         </>
       ) : (
         <>
@@ -121,17 +116,15 @@ const WindowCanvas = ({ winSize, decor }) => {
 
       {/* НИЗ */}
       {bottomDecor ? (
-        <Suspense fallback={null}>
-          <DecorItem
-            position={[
-              0,
-              1.6 - bottomDecor.height / 200,
-              bottomDecor.width / 200,
-            ]}
-            url={bottomDecor.model_3d}
-            size={[width, bottomDecor.height / 100, bottomDecor.width / 100]}
-          />
-        </Suspense>
+        <DecorItem
+          position={[
+            0,
+            1.6 - bottomDecor.height / 200,
+            bottomDecor.width / 200,
+          ]}
+          url={bottomDecor.model_3d}
+          size={[width, bottomDecor.height / 100, bottomDecor.width / 100]}
+        />
       ) : (
         <WinFrameBox
           position={[0, 1.5, 0]}

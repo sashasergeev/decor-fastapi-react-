@@ -3,7 +3,7 @@ import { useLoader } from "@react-three/fiber";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
 
 const DecorItem = ({ url, position, size, rotate = 0 }) => {
-  const geom = useLoader(STLLoader, url);
+  const geom = useLoader(STLLoader, url).clone();
 
   return (
     <>
