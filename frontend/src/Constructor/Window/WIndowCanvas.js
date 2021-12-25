@@ -25,7 +25,7 @@ const WindowCanvas = ({ winSize, decor }) => {
   const topDecor = decor.filter((e) => e.name === "Верх")[0]?.chosen;
   const middleDecor = decor.filter((e) => e.name === "Середина")[0]?.chosen;
   const bottomDecor = decor.filter((e) => e.name === "Низ")[0]?.chosen;
-  console.log(decor);
+
   return (
     <Canvas camera={{ position: [3, 5, 10], fov: 40, near: 0.01 }}>
       <directionalLight
