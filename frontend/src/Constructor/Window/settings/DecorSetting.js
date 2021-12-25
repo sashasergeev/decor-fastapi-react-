@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Catalog from "./Catalog";
+import Catalog from "../../Catalog/Catalog";
 import * as styled from "../../styles";
 
 const DecorSetting = ({ elements, changeElement }) => {

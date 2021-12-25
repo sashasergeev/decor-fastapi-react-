@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Suspense, useRef } from "react";
-import * as styled from "../../styles";
+import * as styled from "../styles";
 
-import PreviewItem from "../elements/PreviewItem";
+import PreviewItem from "./PreviewItem";
 
 import axios from "axios";
 

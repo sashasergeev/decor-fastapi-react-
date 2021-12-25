@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import * as styled from "../../styles";
+import * as styled from "../styles";
 import CatalogList from "./CatalogList";
 
 const Catalog = ({ usage, applies, changeElement }) => {
