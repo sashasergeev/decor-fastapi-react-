@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import * as styled from "../../styles";
+import * as styled from "../styles";
 
-const Size = ({ curr, heightRef, widthRef, applySize }) => {
+const Size = ({ curr, heightRef, widthRef, applySize, applies }) => {
   const [hide, setHide] = useState(false);
 
   const apply = () => {
@@ -12,7 +12,7 @@ const Size = ({ curr, heightRef, widthRef, applySize }) => {
   return (
     <styled.SettingBoxList>
       <styled.SettingTitle onClick={() => setHide(!hide)}>
-        Window Size
+        Размер {applies === "Окно" ? "окна" : "двери"}
       </styled.SettingTitle>
       {!hide && (
         <>

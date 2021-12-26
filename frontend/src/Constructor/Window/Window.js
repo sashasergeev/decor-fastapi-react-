@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, Suspense } from "react";
 import * as styled from "../styles";
-import DecorSetting from "./settings/DecorSetting";
-import Size from "./settings/Size";
+import DecorSetting from "../Settings/DecorSetting";
+import Size from "../Settings/Size";
 import WindowCanvas from "./WIndowCanvas";
 
 import axios from "axios";
@@ -61,8 +61,13 @@ const Window = () => {
           heightRef={heightInput}
           widthRef={widthInput}
           applySize={applyWindowSize}
+          applies="Окно"
         />
-        <DecorSetting changeElement={changeElement} elements={elements} />
+        <DecorSetting
+          changeElement={changeElement}
+          elements={elements}
+          applies="Окно"
+        />
       </styled.SettingBox>
     </>
   );

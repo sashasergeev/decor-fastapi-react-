@@ -3,9 +3,9 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 
 import WinFrameBox from "./elements/WinFrameBox";
-import Wall from "./elements/Wall";
-import Glass from "./elements/Glass";
-import DecorItem from "./elements/DecorItem";
+import Wall from "../elements/Wall";
+import Glass from "../elements/Glass";
+import DecorItem from "../elements/DecorItem";
 
 // import * as THREE from "three";
 

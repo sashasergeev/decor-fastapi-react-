@@ -1,9 +1,9 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 // main container of Constructor, where you can choose between scenes
 export const ConstructorContainer = styled.div`
   display: flex;
-  height: 100vh;
   align-items: center;
   justify-content: center;
 `;
@@ -12,7 +12,6 @@ export const ConstructorContainer = styled.div`
 export const SceneContainer = styled.div`
   display: flex;
   justify-content: center;
-  padding: 10px;
 `;
 
 // Place where the scene is placed
@@ -142,5 +141,34 @@ export const Input = {
       border-radius: 5px;
       padding: 5px;
     }
+  `,
+};
+
+export const ConstructorMenu = {
+  Container: styled.div``,
+  Title: styled.h2`
+    text-align: center;
+    color: black;
+    margin: 0px;
+    padding: 10px;
+  `,
+  ItemLink: styled(Link)`
+    display: block;
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    padding: 5px 10px;
+    background: #a499d3;
+    border-radius: 9999px;
+
+    &:hover {
+      background: #7867be;
+    }
+  `,
+  ItemLinkContainer: styled.div`
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 5px 0px;
   `,
 };
