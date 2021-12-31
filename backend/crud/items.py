@@ -1,3 +1,4 @@
+from typing import Optional
 from fastapi.datastructures import UploadFile
 from fastapi.param_functions import File
 from sqlalchemy.orm import Session
@@ -31,6 +32,42 @@ def upload_static(db: Session, item_id: str, image: UploadFile = File(...), mode
         shutil.copyfileobj(model.file, buffer)
     
     return {"detail": "static files uploaded"}
+
+
+def update_item(
+        db: Session, 
+        item_id: int, 
+        name: Optional[str] = None, 
+        height: Optional[int] = None, 
+        width: Optional[int] = None, 
+        price: Optional[int] = None, 
+        category_id: Optional[int] = None, 
+        image: Optional[str] = None, 
+        model_3d: Optional[str] = None
+        ):
+    item = db.query(models.DecorItem).filter(models.DecorItem.id == item_id).one_or_none()
+    if item is None:
+        return {"detail": "Incorrect item credentials."}
+    
+    if name is not None:
+        item.name = name
+    if height is not None:
+        item.height = height
+    if width is not None:
+        item.width = width
+    if price is not None:
+        item.price = price
+    if category_id is not None:
+        item.category_id = category_id
+    if image is not None:
+        item.image = image
+    if model_3d is not None:
+        item.model_3d = model_3d
+
+    db.commit()
+    db.refresh(item)
+    return item
+    
 
 
 def create_item(db: Session, item: schemas.ItemCreate):
