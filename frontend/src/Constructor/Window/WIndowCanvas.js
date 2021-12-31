@@ -1,6 +1,6 @@
 import React from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, Sky } from "@react-three/drei";
 
 import WinFrameBox from "./elements/WinFrameBox";
 import Wall from "../elements/Wall";
@@ -22,18 +22,29 @@ const WindowCanvas = ({ winSize, decor }) => {
   const widthOfInnersHor = width - bigFrame * 2;
   const heightOfInnerVert = height - bigFrame * 2;
 
+  // objects of chosen decor
   const topDecor = decor.filter((e) => e.name === "Верх")[0]?.chosen;
   const middleDecor = decor.filter((e) => e.name === "Середина")[0]?.chosen;
   const bottomDecor = decor.filter((e) => e.name === "Низ")[0]?.chosen;
 
+  // calculating specific sizes/positions
+  const sidesY_pos =
+    topDecor && topDecor?.category_id === 9
+      ? vertMiddlePoint + topDecor.height / 200
+      : vertMiddlePoint;
+  const sidesX_size =
+    topDecor && topDecor?.category_id === 9
+      ? heightOfInnerVert + topDecor.height / 100
+      : height - bigFrame * 2;
+
   return (
     <Canvas camera={{ position: [3, 5, 10], fov: 40, near: 0.01 }}>
       <directionalLight
-        color="#FFFFFF"
+        color="#ffffff"
         intensity={1}
         position={[-2.5, 5.4, 4.5]}
       />
-      <ambientLight intensity={0.5} />
+      <ambientLight intensity={0.3} />
       <gridHelper />
 
       {/* big window frames */}
@@ -65,16 +76,12 @@ const WindowCanvas = ({ winSize, decor }) => {
           <DecorItem
             position={[
               -(width / 2 - bigFrame) - middleDecor.height / 200,
-              topDecor
-                ? vertMiddlePoint + topDecor.height / 200
-                : vertMiddlePoint,
+              sidesY_pos,
               middleDecor.width / 200,
             ]}
             url={middleDecor.model_3d}
             size={[
-              topDecor
-                ? heightOfInnerVert + topDecor.height / 100
-                : height - middleDecor.height / 100,
+              sidesX_size,
               middleDecor.height / 100,
               middleDecor.width / 100,
             ]}
@@ -83,16 +90,12 @@ const WindowCanvas = ({ winSize, decor }) => {
           <DecorItem
             position={[
               width / 2 - bigFrame + middleDecor.height / 200,
-              topDecor
-                ? vertMiddlePoint + topDecor.height / 200
-                : vertMiddlePoint,
+              sidesY_pos,
               middleDecor.width / 200,
             ]}
             url={middleDecor.model_3d}
             size={[
-              topDecor
-                ? heightOfInnerVert + topDecor.height / 100
-                : height - middleDecor.height / 100,
+              sidesX_size,
               middleDecor.height / 100,
               middleDecor.width / 100,
             ]}
@@ -172,7 +175,14 @@ const WindowCanvas = ({ winSize, decor }) => {
         position={[0, vertMiddlePoint, 0]}
         size={[widthOfInnersHor, heightOfInnerVert, 0.01]}
       />
-
+      <Sky
+        distance={40}
+        sunPosition={[0, 5, 5]}
+        inclination={0}
+        azimuth={16.3}
+        turbidity={10}
+        rayleigh={0.04}
+      />
       {/* PLANE AS WALL */}
       <Wall position={[0, 2.5, 0]} size={[10, 5, 1]} />
 

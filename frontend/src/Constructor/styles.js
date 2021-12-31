@@ -16,7 +16,7 @@ export const SceneContainer = styled.div`
 
 // Place where the scene is placed
 export const SceneBox = styled.div`
-  background-color: #54368c;
+  /* background-color: #54368c; */
   width: 60%;
 `;
 
