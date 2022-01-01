@@ -80,6 +80,7 @@ const DoorCanvas = ({ size, decor }) => {
           size={[width, bigFrame, 0.15]}
         />
       )}
+
       {/* СТОРОНЫ */}
       {middleDecor ? (
         <>

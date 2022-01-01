@@ -7,10 +7,8 @@ import Wall from "../elements/Wall";
 import Glass from "../elements/Glass";
 import DecorItem from "../elements/DecorItem";
 
-// import * as THREE from "three";
-
-const WindowCanvas = ({ winSize, decor }) => {
-  let { height, width } = winSize;
+const WindowCanvas = ({ size, decor }) => {
+  let { height, width } = size;
   width = width / 50; // translate cm to units in 3d
   height = height / 50; // translate cm to units in 3d
 
@@ -48,6 +46,7 @@ const WindowCanvas = ({ winSize, decor }) => {
       <gridHelper />
 
       {/* big window frames */}
+
       {/* ВЕРХ */}
       {topDecor ? (
         <DecorItem
@@ -70,6 +69,7 @@ const WindowCanvas = ({ winSize, decor }) => {
           size={[width, bigFrame, 0.15]}
         />
       )}
+
       {/* СТОРОНЫ */}
       {middleDecor ? (
         <>
@@ -177,7 +177,7 @@ const WindowCanvas = ({ winSize, decor }) => {
       />
       <Sky
         distance={40}
-        sunPosition={[0, 5, 5]}
+        sunPosition={[5, 5, 3]}
         inclination={0}
         azimuth={16.3}
         turbidity={10}

@@ -6,31 +6,51 @@ export const ConstructorContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 `;
 
 // Container in which scene and its settings...
 export const SceneContainer = styled.div`
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  width: 100%;
 `;
 
 // Place where the scene is placed
 export const SceneBox = styled.div`
-  /* background-color: #54368c; */
-  width: 60%;
+  width: 100%;
+  height: ${(props) => (props.$hide ? "80vh" : "50vh")};
+  position: relative;
 `;
 
 // Place where the settings of scene are placed
 export const SettingBox = styled.div`
-  width: 40%;
-  background-color: slateblue;
-  padding: 20px;
+  width: 100%;
+  overflow: hidden;
+  background-color: #443c68;
+  padding: ${(props) => (props.$hide ? "0px" : "20px")};
+  height: ${(props) => (props.$hide ? "0vh" : "")};
   color: white;
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
   justify-content: center;
   align-content: center;
+`;
+
+export const SettingBoxHideBtn = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 10px;
+  background: #443c68;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background: #605688;
+  }
 `;
 
 export const SettingBoxList = styled.div`
@@ -133,13 +153,19 @@ export const Input = {
   Container: styled.div`
     display: flex;
     justify-content: space-between;
+    margin-top: 10px;
     margin-bottom: 10px;
     align-items: center;
-    padding: 5px 0px;
+    padding: 5px;
+    border-radius: 10px;
+    background: #63509d;
     > input {
       border: none;
       border-radius: 5px;
       padding: 5px;
+      text-align: end;
+      background: #473775;
+      color: #ffffff;
     }
   `,
 };
