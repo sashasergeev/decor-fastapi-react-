@@ -3,15 +3,15 @@ import * as styled from "../styles";
 
 import PreviewItem from "./PreviewItem";
 
-import axios from "axios";
+import { useQuery } from "react-query";
+import { fetchItems } from "../../api/constructor";
 
 const CatalogList = ({ category, usage, changeElement }) => {
   // fetch items
-  const [items, setItems] = useState([]);
-  useEffect(() => {
-    const url = `http://127.0.0.1:8000/category/${category.id}`;
-    axios.get(url).then((res) => setItems(res.data.items));
-  }, [category.id]);
+  const { data: items } = useQuery([category.id], fetchItems, {
+    select: (data) => data.data.items,
+    staleTime: Infinity,
+  });
 
   // chosen item
   const [item, setItem] = useState(false);
@@ -44,15 +44,16 @@ const CatalogList = ({ category, usage, changeElement }) => {
     <>
       {/* ITEMS */}
       <styled.Catalog.Container>
-        {items.map((e, inx) => (
-          <styled.Catalog.CategoryItem
-            selected={item === e.name}
-            onClick={handleItemSelect}
-            key={inx}
-          >
-            {e.name}
-          </styled.Catalog.CategoryItem>
-        ))}
+        {items &&
+          items.map((e, inx) => (
+            <styled.Catalog.CategoryItem
+              selected={item === e.name}
+              onClick={handleItemSelect}
+              key={inx}
+            >
+              {e.name}
+            </styled.Catalog.CategoryItem>
+          ))}
       </styled.Catalog.Container>
 
       {/* PREVIEW OF ITEM */}

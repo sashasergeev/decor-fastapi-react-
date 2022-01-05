@@ -1,9 +1,11 @@
-import React, { useRef, useState, useEffect, Suspense } from "react";
+import React, { useRef, useState, Suspense } from "react";
 import * as styled from "./styles";
 import DecorSetting from "./Settings/DecorSetting";
 import Size from "./Settings/Size";
 
-import axios from "axios";
+import { fetchUsage } from "../api/constructor";
+
+import { useQuery } from "react-query";
 
 const ConstructorContainer = ({ elementOfDecor, defaultSize, Canvas }) => {
   const [size, setSize] = useState(defaultSize);
@@ -13,28 +15,19 @@ const ConstructorContainer = ({ elementOfDecor, defaultSize, Canvas }) => {
   const [elements, setElements] = useState([]);
 
   // fetch usages
-  useEffect(() => {
-    const url = "http://127.0.0.1:8000/usage/all";
-
-    axios
-      .get(url)
-      .then((res) =>
-        setElements(
-          res.data
-            .filter((e) => e.applies === elementOfDecor)
-            .map((e) => ({ ...e, chosen: false }))
-        )
+  useQuery(elementOfDecor, fetchUsage, {
+    onSuccess: (data) => {
+      setElements(
+        data.data
+          .filter((e) => e.applies === elementOfDecor)
+          .map((e) => ({ ...e, chosen: false }))
       );
-  }, []);
+    },
+  });
 
   const changeElement = (item, usage) =>
     setElements(
-      elements.map((e) => {
-        if (e.name === usage) {
-          e.chosen = item;
-        }
-        return e;
-      })
+      elements.map((e) => (e.name === usage ? { ...e, chosen: item } : e))
     );
 
   const heightInput = useRef();

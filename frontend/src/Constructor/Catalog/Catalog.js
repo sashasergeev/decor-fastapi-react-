@@ -1,17 +1,21 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import * as styled from "../styles";
 import CatalogList from "./CatalogList";
 
+import { fetchCategories } from "../../api/constructor";
+import { useQuery } from "react-query";
+
 const Catalog = ({ usage, applies, changeElement }) => {
   const [category, setCategory] = useState(false);
-  const [categoriesList, setCategoriesList] = useState([]);
 
-  useEffect(() => {
-    const url = `http://127.0.0.1:8000/category/usage?applies=${applies.toLowerCase()}&usage=${usage}`;
-
-    axios.get(url).then((res) => setCategoriesList(res.data));
-  }, [usage, applies]);
+  const { data: categoriesList } = useQuery(
+    `${usage} ${applies}`,
+    fetchCategories,
+    {
+      select: (data) => data.data,
+      staleTime: Infinity,
+    }
+  );
 
   return (
     <>
@@ -22,14 +26,15 @@ const Catalog = ({ usage, applies, changeElement }) => {
 
       {!category ? (
         <styled.Catalog.Container>
-          {categoriesList.map((e) => (
-            <styled.Catalog.CategoryBox
-              key={e.id}
-              onClick={() => setCategory({ id: e.id, name: e.name })}
-            >
-              {e.name}
-            </styled.Catalog.CategoryBox>
-          ))}
+          {categoriesList &&
+            categoriesList.map((e) => (
+              <styled.Catalog.CategoryBox
+                key={e.id}
+                onClick={() => setCategory({ id: e.id, name: e.name })}
+              >
+                {e.name}
+              </styled.Catalog.CategoryBox>
+            ))}
         </styled.Catalog.Container>
       ) : (
         <>
