@@ -1,13 +1,18 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Door from "./Door/Door";
 import Window from "./Window/Window";
 import * as styled from "./styles";
 
 const Constructor = () => {
+  const location = useLocation();
+  const { pathname } = location;
+
   return (
     <>
-      <styled.ConstructorMenu.Container>
+      <styled.ConstructorMenu.Container
+        fullSize={pathname === "/constructor" ? 1 : 0}
+      >
         <styled.ConstructorMenu.Title>
           Выберите элемент фасада
         </styled.ConstructorMenu.Title>

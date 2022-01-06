@@ -33,6 +33,7 @@ const GlobalStyle = createGlobalStyle`
           sans-serif; */
       color: white;
       background: #cac0db;
+      margin-top: 110px;
     }
 `;
 

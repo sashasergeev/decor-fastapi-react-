@@ -4,6 +4,7 @@ import Constructor from "./Constructor/Constructor";
 import GlobalStyle from "./GlobalStyle";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Header from "./header/Header";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient({
@@ -16,6 +17,7 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <GlobalStyle />
+          <Header />
           <Routes>
             <Route exact path="/" element={null} />
             <Route path="/constructor/*" element={<Constructor />} />

@@ -87,7 +87,7 @@ export const DecorSetItemTitle = styled.div`
 
 const ButtonSkelet = styled.button`
   display: block;
-  padding: 5px 8px;
+  padding: 5px 10px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -171,7 +171,12 @@ export const Input = {
 };
 
 export const ConstructorMenu = {
-  Container: styled.div``,
+  Container: styled.div`
+    height: ${({ fullSize }) => (fullSize ? "80vh" : "")};
+    width: 100vw;
+    display: table-cell;
+    vertical-align: middle;
+  `,
   Title: styled.h2`
     text-align: center;
     color: black;
@@ -184,8 +189,9 @@ export const ConstructorMenu = {
     color: white;
     font-size: 18px;
     padding: 5px 10px;
+    border-radius: 3px;
     background: #a499d3;
-    border-radius: 9999px;
+    transition: 0.5s;
 
     &:hover {
       background: #7867be;
