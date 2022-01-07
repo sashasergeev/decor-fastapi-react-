@@ -1,5 +1,8 @@
 import styled from "styled-components";
 
+import { FaBars } from "react-icons/fa";
+import { AiFillCloseCircle } from "react-icons/ai";
+
 import { NavLink } from "react-router-dom";
 
 export const Nav = styled.nav`
@@ -10,6 +13,9 @@ export const Nav = styled.nav`
   height: 100px;
   background-color: #ffffff;
   box-shadow: 1px 20px 15px 1px rgb(150 14 14 / 7%);
+  @media (max-width: 768px) {
+    height: 60px;
+  }
 `;
 
 export const Logo = styled.div`
@@ -18,11 +24,17 @@ export const Logo = styled.div`
   border-radius: 3px;
   background: #cac0db;
   padding: 5px 10px;
+  & > a {
+    color: white;
+  }
 `;
 
 export const Ul = styled.ul`
   display: flex;
   margin-right: 5px;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 export const Li = styled.li`
   display: block;
@@ -36,7 +48,7 @@ export const Link = styled(NavLink)`
   text-decoration: none;
   padding: 5px 10px;
   border-radius: 3px;
-  transition: 0.5ms;
+  transition: 0.3s;
   &:hover {
     color: white;
     background: #cac0db;
@@ -53,12 +65,23 @@ export const ContactContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 export const ContactItem = styled.div`
-  color: #b1b4b8;
+  color: #a3a0a0;
   font-size: 14px;
   flex: 1;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  align-items: center;
+  & > svg {
+    color: #b6a4d4;
+  }
 `;
 
 export const MenuContainer = styled.div`
@@ -66,4 +89,66 @@ export const MenuContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   height: 60px;
+`;
+
+export const DrawerElem = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: ${({ open }) => (open ? "80vw" : "0vw")};
+  height: 100vh;
+  background-color: white;
+  color: black;
+  display: none;
+  padding: ${({ open }) => (open ? "10px" : "0px")};
+  z-index: 500;
+  transition: 0.5s;
+  overflow-x: hidden;
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    justify-content: space-evenly;
+  }
+`;
+
+export const DrawerBtnElem = styled(FaBars)`
+  display: none;
+  cursor: pointer;
+  color: #7c62aa;
+  width: 25px;
+  height: 25px;
+  @media (max-width: 768px) {
+    display: block;
+  }
+`;
+
+export const CloseDrawerBtnElem = styled(AiFillCloseCircle)`
+  color: #c694cf;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+`;
+
+export const BackDrop = styled.div`
+  display: none;
+  position: fixed;
+  z-index: 100;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  @media (max-width: 768px) {
+    display: block;
+  }
+`;
+
+export const ContactContainerDrawer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
 `;

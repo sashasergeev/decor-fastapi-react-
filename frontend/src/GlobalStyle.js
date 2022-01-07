@@ -34,6 +34,10 @@ const GlobalStyle = createGlobalStyle`
       color: white;
       background: #cac0db;
       margin-top: 110px;
+      @media (max-width: 768px) {
+        margin-top: 60px;
+  }
+
     }
 `;
 
