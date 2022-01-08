@@ -48,6 +48,7 @@ class CategoryBase(BaseModel):
 
 class CategoryCreate(CategoryBase):
     usage_ids: List[int] = []
+    description: Optional[str] = None
         
 
 class CategoryList(CategoryBase):
@@ -62,6 +63,8 @@ class Category(CategoryBase):
     id: int
     items: List[Item] = []
     usage: List[Usage] = []
+    image: Optional[str] = None
+    description: Optional[str] = None
 
     class Config:
         orm_mode = True

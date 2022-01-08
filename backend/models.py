@@ -7,7 +7,7 @@ from database import Base
 
 class BasicColumnMixin(object):
     id = Column(Integer, primary_key=True)
-    name = Column(String(40), unique=True)
+    name = Column(String(40))
 
 
 category_to_usage = Table("category_to_usage", Base.metadata, 
@@ -32,6 +32,8 @@ class Category(BasicColumnMixin, Base):
     __tablename__ = "category"
     items = relationship("DecorItem", backref="category", passive_deletes=True)
     usage = relationship("Usage", secondary=category_to_usage, backref="category")
+    description = Column(String)
+    image = Column(String)
 
 
 class DecorItem(BasicColumnMixin, Base):

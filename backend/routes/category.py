@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 import crud
 import schemas
@@ -9,7 +9,7 @@ from sqlalchemy.orm.session import Session
 router = APIRouter(prefix="/category", tags=["Category"])
 
 
-@router.get("/all", response_model=List[schemas.CategoryList])
+@router.get("/all", response_model=List[schemas.Category])
 def all(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     categories = crud.get_categories(db, skip=skip, limit=limit)
     return categories
@@ -32,6 +32,16 @@ def show(cat_id: int, db: Session = Depends(get_db)):
 def create(category: schemas.CategoryCreate, db: Session = Depends(get_db)):
     return crud.create_category(db=db, category=category)
 
+
+@router.put("/{id}")
+def update(
+        id: int, 
+        name: Optional[str] = None, 
+        description: Optional[str] = None, 
+        image: Optional[str] = None, 
+        db: Session = Depends(get_db)
+        ):
+    return crud.update_category(db, id, name, description, image)
 
 
 

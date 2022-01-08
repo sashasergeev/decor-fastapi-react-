@@ -1,3 +1,4 @@
+from typing import Optional
 from sqlalchemy.orm import Session
 
 import models
@@ -34,7 +35,28 @@ def category_by_usage(db: Session, applies: str, usage: str):
             )
     return usages
 
-    # return db.query(models.Category).filter(models.Category)
+
+def update_category(
+    db: Session,
+    id: int,
+    name: Optional[str] = None,
+    description: Optional[str] = None,
+    image: Optional[str] = None
+    ):
+    category = db.query(models.Category).filter(models.Category.id == id).one_or_none()
+
+    if category is None:
+        return {"detail": "Incorrect category credentials."}
+
+    if name is not None:
+        category.name = name
+    if description is not None:
+        category.description = description
+    if image is not None:
+        category.image = image
+    db.commit()
+    db.refresh(category)
+    return category
 
 
 def add_usage(db: Session, body: schemas.CategoryUsage):
@@ -51,7 +73,6 @@ def remove_usage(db: Session, body: schemas.CategoryUsage):
     db.execute(category_usage) 
     db.commit()
     return db.query(models.Category).filter(models.Category.id == body.category_id).first()
-
 
 
 def delete_category(db: Session, cat_id: int):

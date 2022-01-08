@@ -4,6 +4,13 @@ from fastapi.responses import FileResponse
 router = APIRouter(prefix="/static", tags=["Static"])
 
 
+# FOR CATEGORIES 
+@router.get("/category/{id}/image")
+def item_image(id: str):
+    return FileResponse("static/category/" + id + ".png")
+
+
+# FOR ITEMS
 @router.get("/item/{item_id}/image")
 def item_image(item_id: str):
     return FileResponse("static/images/" + item_id + ".jpg")
