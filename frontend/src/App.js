@@ -5,6 +5,7 @@ import GlobalStyle from "./GlobalStyle";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./header/Header";
+import Catalog from "./catalog/Catalog";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient({
@@ -20,6 +21,7 @@ const App = () => {
           <Header />
           <Routes>
             <Route exact path="/" element={null} />
+            <Route path="/catalog/*" element={<Catalog />} />
             <Route path="/constructor/*" element={<Constructor />} />
           </Routes>
         </BrowserRouter>

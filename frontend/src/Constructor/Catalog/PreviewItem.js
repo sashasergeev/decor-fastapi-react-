@@ -16,6 +16,7 @@ const PreviewItem = ({ item }) => {
         intensity={1}
         position={[-2.5, 5.4, 4.5]}
       />
+      <ambientLight intensity={0.5} />
       <mesh scale={[1, item.height / 50, item.width / 50]} position={[0, 0, 0]}>
         <primitive object={geom} attach="geometry" />
         <meshStandardMaterial

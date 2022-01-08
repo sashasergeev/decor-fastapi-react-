@@ -9,8 +9,8 @@ const GlobalStyle = createGlobalStyle`
     html,
     body,
     #root {
-      width: 100%;
-      height: 100%;
+      /* width: 100%; */
+      /* height: 100%; */
       margin: 0;
       padding: 0;
       -webkit-touch-callout: none;
@@ -19,15 +19,13 @@ const GlobalStyle = createGlobalStyle`
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
-      overflow: hidden;
     }
 
     #root {
-      overflow: auto;
+      /* overflow: auto; */
     }
 
     body {
-      overflow: hidden;
       overscroll-behavior-y: none;
       /* font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, ubuntu, roboto, noto, segoe ui, arial,
           sans-serif; */
