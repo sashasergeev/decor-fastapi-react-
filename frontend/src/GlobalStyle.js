@@ -31,7 +31,7 @@ const GlobalStyle = createGlobalStyle`
           sans-serif; */
       color: white;
       background: #cac0db;
-      margin-top: 110px;
+      margin-top: 100px;
       @media (max-width: 768px) {
         margin-top: 60px;
   }

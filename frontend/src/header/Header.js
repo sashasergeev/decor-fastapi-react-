@@ -9,11 +9,8 @@ import {
   ContactItem,
   MenuContainer,
   BackDrop,
+  Icon,
 } from "./styles";
-
-import { FaPhoneAlt } from "react-icons/fa";
-import { BsFillPinMapFill } from "react-icons/bs";
-import { MdEmail } from "react-icons/md";
 
 import Drawer from "./Drawer";
 import DrawerButton from "./DrawerButton";
@@ -27,14 +24,14 @@ const Header = () => {
     <Nav>
       <ContactContainer>
         <ContactItem>
-          <FaPhoneAlt />
+          <Icon.Phone />
           +7-911-756-5366
         </ContactItem>
         <ContactItem>
-          <BsFillPinMapFill /> ул. Лесная д. 3в
+          <Icon.Map /> ул. Лесная д. 3в
         </ContactItem>
         <ContactItem>
-          <MdEmail />
+          <Icon.Mail />
           info@decolight.com
         </ContactItem>
       </ContactContainer>

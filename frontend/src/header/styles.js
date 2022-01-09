@@ -5,6 +5,16 @@ import { AiFillCloseCircle } from "react-icons/ai";
 
 import { NavLink } from "react-router-dom";
 
+import { FaPhoneAlt as PhoneIcon } from "react-icons/fa";
+import { BsFillPinMapFill as MapIcon } from "react-icons/bs";
+import { MdEmail as MailIcon } from "react-icons/md";
+
+export const Icon = {
+  Phone: styled(PhoneIcon)``,
+  Map: styled(MapIcon)``,
+  Mail: styled(MailIcon)``,
+};
+
 export const Nav = styled.nav`
   position: fixed;
   top: 0;

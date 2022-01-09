@@ -49,3 +49,10 @@ class DecorItem(BasicColumnMixin, Base):
     model_3d = Column(String)
 
     price = Column(Integer)
+
+
+class Submit(BasicColumnMixin, Base):
+    __tablename__= "submit"
+    phone = Column(String(15))
+    email = Column(String(20))
+    message = Column(String)
