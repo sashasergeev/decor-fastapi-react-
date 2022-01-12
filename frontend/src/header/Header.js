@@ -36,9 +36,7 @@ const Header = () => {
         </ContactItem>
       </ContactContainer>
       <MenuContainer>
-        <Logo>
-          <Link to="/">DecoLight</Link>
-        </Logo>
+        <Logo to="/">DecoLight</Logo>
         <Ul>
           <Li>
             <Link to="/">Главная</Link>

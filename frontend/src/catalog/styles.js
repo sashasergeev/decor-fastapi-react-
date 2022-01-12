@@ -13,7 +13,6 @@ export const SectionTitle = styled.h1`
   margin: auto;
   width: fit-content;
   padding: 5px 15px;
-  background: #443c68;
   border-radius: 7px;
   margin-top: 120px;
 `;
@@ -55,7 +54,7 @@ export const Category = {
     display: block;
     max-width: 320px;
     text-align: center;
-    background: #494257;
+    background: #d8d8d8;
     color: black;
     text-decoration: none;
     padding: 10px;
@@ -63,7 +62,6 @@ export const Category = {
   Title: styled.h3`
     text-align: center;
     margin: 5px;
-    color: white;
   `,
   Description: styled.div`
     display: flex;
@@ -72,14 +70,13 @@ export const Category = {
     margin: 5px;
     justify-content: center;
     flex: 1;
-    background: #3a3345;
+    background: #bdbdbd;
     border-radius: 5px;
-    color: white;
 
     & > div {
       padding: 5px;
       text-align: right;
-      color: #bfbfbf;
+      color: black;
     }
   `,
 };
@@ -91,7 +88,7 @@ export const Item = {
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    background: #494257;
+    background: #212229;
     padding: 10px;
     border-radius: 5px;
   `,
@@ -112,7 +109,7 @@ export const Item = {
     margin: 5px;
     justify-content: center;
     flex: 1;
-    background: #3a3345;
+    background: #212121;
     padding: 5px;
     border-radius: 5px;
   `,

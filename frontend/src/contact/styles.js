@@ -6,7 +6,7 @@ import { MdDoneOutline as DoneIcon } from "react-icons/md";
 export const Container = styled.div`
   width: 100vw;
   margin: 0 auto;
-  background-color: #453b67;
+  background-color: #2f2b3b;
   height: calc(100vh - 100px);
   @media (max-width: 768px) {
     width: 100vw;
@@ -41,7 +41,7 @@ export const Text = styled.div`
 `;
 
 const IconSkelet =
-  "height: 35px;width: 35px;background: #cac0db;padding: 5px;border-radius: 50%;";
+  "height: 35px;width: 35px;background: #494257;padding: 5px;border-radius: 50%;";
 
 export const Icon = {
   Phone: styled(Icons.Phone)`

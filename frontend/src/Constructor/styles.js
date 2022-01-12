@@ -30,7 +30,7 @@ export const SettingBox = styled.div`
   overflow: hidden;
   background-color: #443c68;
   padding: ${(props) => (props.$hide ? "0px" : "20px")};
-  height: ${(props) => (props.$hide ? "0vh" : "")};
+  height: ${(props) => (props.$hide ? "0vh" : "662px")};
   color: white;
   display: flex;
   gap: 15px;
@@ -124,7 +124,7 @@ export const Catalog = {
     /* margin-top: 10px; */
     background-color: #54368c;
     border-radius: 8px;
-    max-height: 200px;
+    max-height: 150px;
     overflow: overlay;
   `,
   Title: styled.div`
@@ -179,7 +179,7 @@ export const ConstructorMenu = {
   `,
   Title: styled.h2`
     text-align: center;
-    color: black;
+    color: #494257;
     margin: 0px;
     padding: 10px;
   `,

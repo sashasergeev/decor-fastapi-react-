@@ -6,6 +6,12 @@ import PreviewItem from "./PreviewItem";
 import { useQuery } from "react-query";
 import { fetchItems } from "../../api/constructor";
 
+const LoadingPreview = () => (
+  <>
+    <div style={{ height: "200xp" }}></div>
+  </>
+);
+
 const CatalogList = ({ category, usage, changeElement }) => {
   // fetch items
   const { data: items } = useQuery([category.id], fetchItems, {
@@ -39,7 +45,6 @@ const CatalogList = ({ category, usage, changeElement }) => {
     }
     changeElement(decor, usage);
   };
-
   return (
     <>
       {/* ITEMS */}

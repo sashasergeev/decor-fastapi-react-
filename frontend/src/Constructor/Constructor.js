@@ -3,16 +3,19 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import Door from "./Door/Door";
 import Window from "./Window/Window";
 import * as styled from "./styles";
+import { Welcome } from "../main/styles";
 
 const Constructor = () => {
   const location = useLocation();
-  const { pathname } = location;
-
+  const { pathname: pn } = location;
   return (
     <>
       <styled.ConstructorMenu.Container
-        fullSize={pathname === "/constructor" ? 1 : 0}
+        fullSize={pn === "/constructor" ? 1 : 0}
       >
+        {pn === "/constructor" && (
+          <Welcome.Image src="images/main-profile.png" alt="" />
+        )}
         <styled.ConstructorMenu.Title>
           Выберите элемент фасада
         </styled.ConstructorMenu.Title>

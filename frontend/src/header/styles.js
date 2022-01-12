@@ -22,21 +22,20 @@ export const Nav = styled.nav`
   right: 0;
   height: 100px;
   background-color: #ffffff;
-  box-shadow: 1px 20px 15px 1px rgb(150 14 14 / 7%);
   @media (max-width: 768px) {
     height: 60px;
   }
 `;
 
-export const Logo = styled.div`
+export const Logo = styled(NavLink)`
   font-weight: 700;
   font-size: 20px;
   border-radius: 3px;
-  background: #cac0db;
+  background: #494257;
   padding: 5px 10px;
-  & > a {
-    color: white;
-  }
+  color: white;
+  text-decoration: none;
+  box-shadow: 6px 8px 14px 1px rgb(0 0 0 / 25%);
 `;
 
 export const Ul = styled.ul`
@@ -81,7 +80,7 @@ export const ContactContainer = styled.div`
   }
 `;
 export const ContactItem = styled.div`
-  color: #a3a0a0;
+  color: #494257b0;
   font-size: 14px;
   flex: 1;
   text-align: center;
@@ -90,7 +89,7 @@ export const ContactItem = styled.div`
   gap: 8px;
   align-items: center;
   & > svg {
-    color: #b6a4d4;
+    color: #494257d1;
   }
 `;
 
