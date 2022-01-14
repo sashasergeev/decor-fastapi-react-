@@ -1,48 +1,26 @@
 {
-  "name": "deco",
-  "version": "0.1.0",
+  "name": "frontend2",
   "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
   "dependencies": {
-    "@babel/core": "^7.13.0",
-    "@react-three/drei": "^7.22.9",
-    "@react-three/fiber": "^7.0.21",
-    "@testing-library/jest-dom": "^5.15.1",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
-    "axios": "^0.24.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "@react-three/drei": "^8.4.0",
+    "@react-three/fiber": "^7.0.24",
+    "next": "12.0.8",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
     "react-icons": "^4.3.1",
     "react-modal": "^3.14.4",
-    "react-query": "^3.34.7",
-    "react-router-dom": "^6.2.1",
-    "react-scripts": "4.0.3",
     "styled-components": "^5.3.3",
-    "three": "^0.135.0",
-    "web-vitals": "^1.1.2"
+    "three": "^0.136.0"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "babel-plugin-styled-components": "^2.0.2",
+    "eslint": "8.6.0",
+    "eslint-config-next": "12.0.8"
   }
 }
