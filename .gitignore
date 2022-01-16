@@ -28,3 +28,6 @@ __pycache__
 .vscode
 
 static/
+public/items/image/
+public/items/models/
+public/categories/image/
