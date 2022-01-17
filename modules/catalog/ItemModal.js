@@ -5,6 +5,8 @@ import PreviewItem from "../common/PreviewItem";
 import { Input, Button } from "../../styles/constructor";
 import { Item, Icon } from "../../styles/catalog";
 
+import { Canvas } from "@react-three/fiber";
+
 Modal.setAppElement("#__next");
 
 const customStyles = {
@@ -53,7 +55,12 @@ const ItemModal = ({ item, close }) => {
           height={150}
         />
         <Suspense fallback={null}>
-          <PreviewItem item={custom} />
+          <Canvas
+            style={{ width: "300px" }}
+            camera={{ position: [0.8, 0.2, 0.4], fov: 50, near: 0.01 }}
+          >
+            <PreviewItem item={custom} />
+          </Canvas>
         </Suspense>
       </Item.Previews>
       <div style={{ width: "-webkit-fill-available" }}>

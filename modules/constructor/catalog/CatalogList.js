@@ -1,5 +1,7 @@
 import { useState, useEffect, Suspense } from "react";
 
+import { Canvas } from "@react-three/fiber";
+
 import PreviewItem from "../../common/PreviewItem";
 import * as styled from "../../../styles/constructor";
 
@@ -101,7 +103,12 @@ const CatalogList = ({ category, usage, changeElement }) => {
                 value={width}
               />
             </styled.Input.Container>
-            <PreviewItem mini item={decor} />
+            <Canvas
+              style={{ width: "220px" }}
+              camera={{ position: [0.8, 0.2, 0.4], fov: 50, near: 0.01 }}
+            >
+              <PreviewItem item={decor} />
+            </Canvas>
           </>
         )}
       </Suspense>

@@ -24,14 +24,14 @@ const Canvas = ({ size, decor }) => {
   const baseDecor = decor.filter((e) => e.name === "Base")[0]?.chosen;
 
   // calculating specific sizes/positions
-  const isTopDec9 = topDecor && topDecor?.category_id === 9;
-  const isTopDec9baseDec = isTopDec9 && baseDecor;
+  const isTopDec11 = topDecor && topDecor?.category_id === 11;
+  const isTopDec9baseDec = isTopDec11 && baseDecor;
   const sidesY_pos = isTopDec9baseDec
     ? vertMiddlePoint +
       topDecor.height / 200 -
       bigFrame / 2 +
       baseDecor.height / 100
-    : isTopDec9
+    : isTopDec11
     ? vertMiddlePoint + topDecor.height / 200 - bigFrame / 2
     : baseDecor
     ? vertMiddlePoint - bigFrame / 2 + baseDecor.height / 100
@@ -41,7 +41,7 @@ const Canvas = ({ size, decor }) => {
       topDecor.height / 100 +
       bigFrame -
       baseDecor.height / 50
-    : isTopDec9
+    : isTopDec11
     ? heightOfInnerVert + topDecor.height / 100 + bigFrame
     : baseDecor
     ? heightOfInnerVert + bigFrame - baseDecor.height / 50

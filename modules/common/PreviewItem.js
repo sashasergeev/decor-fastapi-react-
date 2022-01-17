@@ -1,16 +1,20 @@
-import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 
 import { useLoader } from "@react-three/fiber";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
 
+import { useEffect } from "react";
+import { useThree } from "@react-three/fiber";
+
 const PreviewItem = ({ item, mini }) => {
   const geom = useLoader(STLLoader, `/items/models/${item.id}.stl`);
+
+  const state = useThree();
+
+  useEffect(() => () => state.gl.dispose(), []);
+
   return (
-    <Canvas
-      style={{ width: mini ? "220px" : "300px" }}
-      camera={{ position: [0.8, 0.2, 0.4], fov: 50, near: 0.01 }}
-    >
+    <>
       <directionalLight
         color="#FFFFFF"
         intensity={1}
@@ -26,7 +30,7 @@ const PreviewItem = ({ item, mini }) => {
         />
       </mesh>
       <OrbitControls makeDefault dampingFactor={0.3} />
-    </Canvas>
+    </>
   );
 };
 

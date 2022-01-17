@@ -25,11 +25,11 @@ const Canvas = ({ size, decor }) => {
 
   // calculating specific sizes/positions
   const sidesY_pos =
-    topDecor && topDecor?.category_id === 9
+    topDecor && topDecor?.category_id === 11
       ? vertMiddlePoint + topDecor.height / 200
       : vertMiddlePoint;
   const sidesX_size =
-    topDecor && topDecor?.category_id === 9
+    topDecor && topDecor?.category_id === 11
       ? heightOfInnerVert + topDecor.height / 100
       : height - bigFrame * 2;
 
