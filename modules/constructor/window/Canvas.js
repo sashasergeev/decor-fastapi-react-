@@ -1,10 +1,11 @@
-import { Canvas as Canvas3d } from "@react-three/fiber";
-import { OrbitControls, Sky } from "@react-three/drei";
+import { Sky } from "@react-three/drei";
 
 import DecorItem from "../elements/DecorItem";
 import Wall from "../elements/Wall";
 import Glass from "../elements/Glass";
 import FrameBox from "../elements/FrameBox";
+
+import Controls from "../Controls";
 
 const Canvas = ({ size, decor }) => {
   let { height, width } = size;
@@ -34,7 +35,7 @@ const Canvas = ({ size, decor }) => {
       : height - bigFrame * 2;
 
   return (
-    <Canvas3d camera={{ position: [3, 5, 10], fov: 40, near: 0.01 }}>
+    <>
       <directionalLight
         color="#ffffff"
         intensity={1}
@@ -185,8 +186,11 @@ const Canvas = ({ size, decor }) => {
       <Wall position={[0, 2.5, 0]} size={[10, 5, 1]} />
 
       {/* make it interactive */}
-      <OrbitControls makeDefault dampingFactor={0.3} />
-    </Canvas3d>
+      <Controls
+        defCamPoint={vertMiddlePoint}
+        defRotation={[-0.6, 1.5, false]}
+      />
+    </>
   );
 };
 

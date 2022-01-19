@@ -7,6 +7,8 @@ import DecorSetting from "./settings/DecorSetting";
 import { gql } from "@apollo/client";
 import client from "../../apollo-client";
 
+import { Canvas as CanvasBox } from "@react-three/fiber";
+
 const Container = ({ elementOfDecor, defaultSize, Canvas }) => {
   const [hide, setHide] = useState(false);
 
@@ -65,7 +67,9 @@ const Container = ({ elementOfDecor, defaultSize, Canvas }) => {
       </styled.SettingBox>
       <styled.SceneBox $hide={hide ? true : false}>
         <Suspense fallback={null}>
-          <Canvas decor={elements} size={size} />
+          <CanvasBox>
+            <Canvas decor={elements} size={size} />
+          </CanvasBox>
           <styled.SettingBoxHideBtn onClick={() => setHide(!hide)}>
             {hide ? "настройки" : "cкрыть"}
           </styled.SettingBoxHideBtn>

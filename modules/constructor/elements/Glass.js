@@ -6,9 +6,10 @@ const Glass = ({ position, size }) => {
       <boxGeometry args={size} />
       <meshPhysicalMaterial
         color={"#738691"}
-        transmission={1}
+        transmission={1.2}
         emissiveIntensity={0}
         transparent={1}
+        reflectivity={0}
       />
     </mesh>
   );
