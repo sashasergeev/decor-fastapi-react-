@@ -1,47 +1,58 @@
-import React, { useState } from "react";
+import React from "react";
+
+import { useSelector, useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "../store";
+
 import Catalog from "../catalog/Catalog";
 import * as styled from "../../../styles/constructor";
 
-const DecorSetting = ({ elements, changeElement, applies }) => {
-  const [hide, setHide] = useState(false);
-  const [pick, setPick] = useState(false);
-
-  const clear = (item, usage) => {
-    changeElement(item, usage);
-    setHide(false);
-    setPick(false);
-  };
+const DecorSetting = () => {
+  // redux
+  const dispatch = useDispatch();
+  const ac = bindActionCreators(actionCreators, dispatch);
+  const [usages, hide, chosenUsage] = useSelector(({ usage, ui, catalog }) => [
+    usage,
+    ui.hideDecSets,
+    catalog.chosenUsage,
+  ]);
 
   return (
     <styled.SettingBoxList>
-      <styled.SettingTitle onClick={() => setHide(!hide)}>
+      <styled.SettingTitle onClick={() => ac.setUI("hideDecSets", !hide)}>
         Декор
       </styled.SettingTitle>
-      {!hide && !pick ? (
-        elements.map((e, inx) => (
+      {!hide && !chosenUsage ? (
+        Object.entries(usages).map(([key, value], inx) => (
           <styled.DecorSetItem key={inx}>
             <div>
-              <styled.DecorSetItemTitle>{e.name}</styled.DecorSetItemTitle>
-              {e.chosen ? <>Выбрано: {e.chosen.name}</> : <>Не выбрано...</>}
+              <styled.DecorSetItemTitle>{key}</styled.DecorSetItemTitle>
+              {value.chosen ? (
+                <>Выбрано: {value.chosen.name}</>
+              ) : (
+                <>Не выбрано...</>
+              )}
             </div>
-            <styled.Button.Info onClick={() => setPick(e.name)}>
-              {e.chosen ? "Поменять" : "Выбрать"}
+            <styled.Button.Info
+              onClick={() => ac.setCatalog("chosenUsage", value.name)}
+            >
+              {value.chosen ? "Поменять" : "Выбрать"}
             </styled.Button.Info>
           </styled.DecorSetItem>
         ))
-      ) : !hide && pick ? (
+      ) : !hide && chosenUsage ? (
         <>
           <styled.DecorSetItem>
             <div>
               <styled.DecorSetItemTitle>
-                Выберите: {pick}
+                Выберите: {chosenUsage}
               </styled.DecorSetItemTitle>
             </div>
-            <styled.Button.Warn onClick={() => setPick(false)}>
+            <styled.Button.Warn onClick={ac.clearCatalog}>
               Назад
             </styled.Button.Warn>
           </styled.DecorSetItem>
-          <Catalog changeElement={clear} usage={pick} applies={applies} />
+          <Catalog />
         </>
       ) : (
         <></>

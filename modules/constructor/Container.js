@@ -4,39 +4,25 @@ import * as styled from "../../styles/constructor";
 import Size from "./settings/Size";
 import DecorSetting from "./settings/DecorSetting";
 
-import { gql } from "@apollo/client";
-import client from "../../apollo-client";
+import { useSelector, useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "../../modules/constructor/store/index";
 
 import { Canvas as CanvasBox } from "@react-three/fiber";
 
 const Container = ({ elementOfDecor, defaultSize, Canvas }) => {
-  const [hide, setHide] = useState(false);
+  // redux
+  const dispatch = useDispatch();
+  const ac = bindActionCreators(actionCreators, dispatch);
+  const [elements, hide] = useSelector(({ usage, ui }) => [
+    usage,
+    ui.hideSettings,
+  ]);
 
-  // usages related
-  const [elements, setElements] = useState([]);
-  const fetchUsages = async () => {
-    const { data } = await client.query({
-      query: gql`
-      query UsagesOf${elementOfDecor} {
-        usages(where: {applied: {_eq: ${elementOfDecor}}}) {
-          id
-          name
-        }
-      }
-      `,
-    });
-
-    setElements(data.usages.map((e) => ({ ...e, chosen: false })));
-  };
   useEffect(() => {
-    fetchUsages();
+    ac.setApplies(elementOfDecor);
+    ac.fetchUsages(elementOfDecor);
   }, []);
-
-  // item related
-  const changeItem = (item, usage) =>
-    setElements(
-      elements.map((e) => (e.name === usage ? { ...e, chosen: item } : e))
-    );
 
   // size related
   const [size, setSize] = useState(defaultSize);
@@ -48,7 +34,6 @@ const Container = ({ elementOfDecor, defaultSize, Canvas }) => {
       width: +widthInput.current.value,
     });
   };
-
   return (
     <>
       <styled.SettingBox $hide={hide ? true : false}>
@@ -57,21 +42,28 @@ const Container = ({ elementOfDecor, defaultSize, Canvas }) => {
           heightRef={heightInput}
           widthRef={widthInput}
           applySize={applySize}
-          applies={elementOfDecor}
         />
-        <DecorSetting
-          changeElement={changeItem}
-          elements={elements}
-          applies={elementOfDecor}
-        />
+        <DecorSetting />
       </styled.SettingBox>
       <styled.SceneBox $hide={hide ? true : false}>
         <Suspense fallback={null}>
           <CanvasBox>
             <Canvas decor={elements} size={size} />
           </CanvasBox>
-          <styled.SettingBoxHideBtn onClick={() => setHide(!hide)}>
-            {hide ? "настройки" : "cкрыть"}
+          <styled.SettingBoxHideBtn
+            onClick={() => ac.setUI("hideSettings", !hide)}
+          >
+            {hide ? (
+              <div>
+                <styled.SettingIcon />
+                <span>настройки</span>
+              </div>
+            ) : (
+              <div>
+                <styled.SettingIcon />
+                <span>cкрыть</span>
+              </div>
+            )}
           </styled.SettingBoxHideBtn>
         </Suspense>
       </styled.SceneBox>

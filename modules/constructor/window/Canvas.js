@@ -19,10 +19,11 @@ const Canvas = ({ size, decor }) => {
   const vertMiddlePoint = height / 2 + lowestPoint; // позиция середины для элементов по y оси
   const widthOfInnersHor = width - bigFrame * 2;
   const heightOfInnerVert = height - bigFrame * 2;
+
   // objects of chosen decor
-  const topDecor = decor.filter((e) => e.name === "Top")[0]?.chosen;
-  const middleDecor = decor.filter((e) => e.name === "Middle")[0]?.chosen;
-  const bottomDecor = decor.filter((e) => e.name === "Bottom")[0]?.chosen;
+  const topDecor = decor?.Top?.chosen;
+  const middleDecor = decor?.Middle?.chosen;
+  const bottomDecor = decor?.Bottom?.chosen;
 
   // calculating specific sizes/positions
   const sidesY_pos =

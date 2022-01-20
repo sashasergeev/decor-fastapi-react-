@@ -1,4 +1,4 @@
-import { GlobalStyle } from "./GlobalStyle";
+import { GlobalStyle } from "../styles/GlobalStyle";
 import Header from "../modules/header/Header";
 
 const MyApp = ({ Component, pageProps }) => {

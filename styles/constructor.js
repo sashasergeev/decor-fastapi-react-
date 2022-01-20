@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { FiSettings } from "react-icons/fi";
+
 // main container of Constructor, where you can choose between scenes
 export const ConstructorContainer = styled.div`
   display: flex;
@@ -40,17 +42,27 @@ export const SettingBox = styled.div`
 
 export const SettingBoxHideBtn = styled.div`
   position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 5px 10px;
-  background: #443c68;
-  border-radius: 5px;
+  top: 17px;
+  left: 50%;
+  right: 50%;
+  padding: 8px 12px;
+  background: #254867;
+  border-radius: 0px 0px 10px 10px;
   cursor: pointer;
+  width: fit-content;
+  transform: translate(-50%, -50%);
+  transition: 0.5s;
 
   &:hover {
     background: #605688;
   }
+  & div {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
 `;
+export const SettingIcon = styled(FiSettings)``;
 
 export const SettingBoxList = styled.div`
   background-color: #7867be;

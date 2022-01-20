@@ -5,34 +5,17 @@ import { Canvas } from "@react-three/fiber";
 import PreviewItem from "../../common/PreviewItem";
 import * as styled from "../../../styles/constructor";
 
-import { gql } from "@apollo/client";
-import client from "../../../apollo-client";
+import { useSelector, useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "../store";
 
-const CatalogList = ({ category, usage, changeElement }) => {
-  // fetch items
-  const [items, setItems] = useState([]);
+const CatalogList = () => {
+  // redux
+  const dispatch = useDispatch();
+  const ac = bindActionCreators(actionCreators, dispatch);
+  const { items, chosenUsage } = useSelector(({ catalog }) => catalog);
 
-  const fetchItems = async () => {
-    const { data } = await client.query({
-      query: gql`
-      query ItemsByCategory${category.id} {
-        categories_by_pk(id: ${category.id}) {
-          items {
-            id
-            name
-            height
-            width
-          }
-        }
-      }
-      
-      `,
-    });
-
-    setItems(data.categories_by_pk.items);
-  };
-
-  useEffect(() => fetchItems(), []);
+  useEffect(() => ac.fetchItems(), []);
 
   // chosen item
   const [item, setItem] = useState(false);
@@ -57,11 +40,11 @@ const CatalogList = ({ category, usage, changeElement }) => {
   // applying chosen item
   const handleItem = () => {
     if (height !== decor.height || width !== decor.width) {
-      console.log(decor);
       decor.height = height;
       decor.width = width;
     }
-    changeElement(decor, usage);
+    ac.applyItem(decor, chosenUsage);
+    ac.clearCatalog();
   };
   return (
     <>
@@ -115,7 +98,9 @@ const CatalogList = ({ category, usage, changeElement }) => {
 
       {/* BUTTONS */}
       <styled.Catalog.ButtonGroup>
-        <styled.Button.Warn>Reset</styled.Button.Warn>
+        <styled.Button.Warn onClick={() => ac.resetItem(chosenUsage)}>
+          Reset
+        </styled.Button.Warn>
         {item && (
           <styled.Button.Apply onClick={handleItem}>Apply</styled.Button.Apply>
         )}

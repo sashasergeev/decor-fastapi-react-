@@ -1,43 +1,33 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
-import CatalogList from "./CatalogList";
+import { useSelector, useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "../store";
+
 import * as styled from "../../../styles/constructor";
+import CatalogList from "./CatalogList";
 
-import { gql } from "@apollo/client";
-import client from "../../../apollo-client";
+const Catalog = () => {
+  // redux
+  const dispatch = useDispatch();
+  const ac = bindActionCreators(actionCreators, dispatch);
+  const { chosenCategory: category, categories: categoriesList } = useSelector(
+    ({ catalog }) => catalog
+  );
 
-const Catalog = ({ usage, applies, changeElement }) => {
-  const [category, setCategory] = useState(false);
-  const [categoriesList, setCategoriesList] = useState([]);
-
-  const fetchCategories = async () => {
-    const { data } = await client.query({
-      query: gql`
-        query Categories${applies}${usage} {
-          categories(
-            where: {
-              usages: {
-                usage: { applied: { _eq: ${applies} }, name: { _eq: ${usage} } }
-              }
-            }
-          ) {
-            id
-            name
-            description
-          }
-        }
-      `,
-    });
-
-    setCategoriesList(data.categories);
-  };
-
-  useEffect(() => fetchCategories(), []);
+  useEffect(() => ac.fetchCategories(), []);
 
   return (
     <>
       <styled.Catalog.Title>
-        <span onClick={() => setCategory(false)}>Catalog</span>
+        <span
+          onClick={() => {
+            ac.setCatalog("chosenCategory", false);
+            ac.setCatalog("items", []);
+          }}
+        >
+          Catalog
+        </span>
         {category && " > " + category.name}
       </styled.Catalog.Title>
 
@@ -47,7 +37,9 @@ const Catalog = ({ usage, applies, changeElement }) => {
             categoriesList.map((e) => (
               <styled.Catalog.CategoryBox
                 key={e.id}
-                onClick={() => setCategory({ id: e.id, name: e.name })}
+                onClick={() =>
+                  ac.setCatalog("chosenCategory", { id: e.id, name: e.name })
+                }
               >
                 {e.name}
               </styled.Catalog.CategoryBox>
@@ -55,11 +47,7 @@ const Catalog = ({ usage, applies, changeElement }) => {
         </styled.Catalog.Container>
       ) : (
         <>
-          <CatalogList
-            usage={usage}
-            changeElement={changeElement}
-            category={category}
-          />
+          <CatalogList />
         </>
       )}
     </>

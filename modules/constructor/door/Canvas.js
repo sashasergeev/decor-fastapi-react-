@@ -19,9 +19,9 @@ const Canvas = ({ size, decor }) => {
   const heightOfInnerVert = height - bigFrame * 2;
 
   // objects of chosen decor
-  const topDecor = decor.filter((e) => e.name === "Top")[0]?.chosen;
-  const middleDecor = decor.filter((e) => e.name === "Middle")[0]?.chosen;
-  const baseDecor = decor.filter((e) => e.name === "Base")[0]?.chosen;
+  const topDecor = decor?.Top?.chosen;
+  const middleDecor = decor?.Middle?.chosen;
+  const baseDecor = decor?.Base?.chosen;
 
   // calculating specific sizes/positions
   const isTopDec11 = topDecor && topDecor?.category_id === 11;
