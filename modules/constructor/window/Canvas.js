@@ -4,10 +4,10 @@ import DecorItem from "../elements/DecorItem";
 import Wall from "../elements/Wall";
 import Glass from "../elements/Glass";
 import FrameBox from "../elements/FrameBox";
-
 import Controls from "../Controls";
 
 const Canvas = ({ size, decor }) => {
+  // calculating coordinates of objects
   let { height, width } = size;
   width = width / 50; // translate cm to units in 3d
   height = height / 50; // translate cm to units in 3d
@@ -61,12 +61,14 @@ const Canvas = ({ size, decor }) => {
             topDecor.height / 100,
             topDecor.width / 100,
           ]}
+          usage={"Top"}
         />
       ) : (
         <FrameBox
-          position={[0, upperMiddlePoint, 0]}
+          position={[0, upperMiddlePoint, -0.04]}
           variant="big"
           size={[width, bigFrame, 0.15]}
+          usage={"Top"}
         />
       )}
 
@@ -86,6 +88,7 @@ const Canvas = ({ size, decor }) => {
               middleDecor.width / 100,
             ]}
             rotate={1.5707963268}
+            usage={"Middle"}
           />
           <DecorItem
             position={[
@@ -100,19 +103,22 @@ const Canvas = ({ size, decor }) => {
               middleDecor.width / 100,
             ]}
             rotate={-1.5707963268}
+            usage={"Middle"}
           />
         </>
       ) : (
         <>
           <FrameBox
-            position={[-(width / 2 - bigFrame / 2), vertMiddlePoint, 0]}
+            position={[-(width / 2 - bigFrame / 2), vertMiddlePoint, -0.04]}
             variant="big"
-            size={[bigFrame, height, 0.15]}
+            size={[bigFrame, height - bigFrame * 2, 0.15]}
+            usage={"Middle"}
           />
           <FrameBox
-            position={[width / 2 - bigFrame / 2, vertMiddlePoint, 0]}
+            position={[width / 2 - bigFrame / 2, vertMiddlePoint, -0.04]}
             variant="big"
-            size={[bigFrame, height, 0.15]}
+            size={[bigFrame, height - bigFrame * 2, 0.15]}
+            usage={"Middle"}
           />
         </>
       )}
@@ -127,12 +133,14 @@ const Canvas = ({ size, decor }) => {
           ]}
           id={bottomDecor.id}
           size={[width, bottomDecor.height / 100, bottomDecor.width / 100]}
+          usage={"Bottom"}
         />
       ) : (
         <FrameBox
-          position={[0, 1.5, 0]}
+          position={[0, 1.5, -0.04]}
           variant="big"
           size={[width, bigFrame, 0.15]}
+          usage={"Bottom"}
         />
       )}
 

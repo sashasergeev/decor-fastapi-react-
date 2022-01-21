@@ -72,12 +72,14 @@ const Canvas = ({ size, decor }) => {
             topDecor.height / 100,
             topDecor.width / 100,
           ]}
+          usage="Top"
         />
       ) : (
         <FrameBox
-          position={[0, upperMiddlePoint, 0]}
+          position={[0, upperMiddlePoint, -0.04]}
           variant="big"
           size={[width, bigFrame, 0.15]}
+          usage="Top"
         />
       )}
 
@@ -97,6 +99,7 @@ const Canvas = ({ size, decor }) => {
               middleDecor.width / 100,
             ]}
             rotate={1.5707963268}
+            usage="Middle"
           />
           <DecorItem
             position={[
@@ -111,19 +114,30 @@ const Canvas = ({ size, decor }) => {
               middleDecor.width / 100,
             ]}
             rotate={-1.5707963268}
+            usage="Middle"
           />
         </>
       ) : (
         <>
           <FrameBox
-            position={[-(width / 2 - bigFrame / 2), vertMiddlePoint, 0]}
+            position={[
+              -(width / 2 - bigFrame / 2),
+              vertMiddlePoint - bigFrame / 2,
+              -0.04,
+            ]}
             variant="big"
-            size={[bigFrame, height, 0.15]}
+            size={[bigFrame, height - bigFrame, 0.15]}
+            usage="Middle"
           />
           <FrameBox
-            position={[width / 2 - bigFrame / 2, vertMiddlePoint, 0]}
+            position={[
+              width / 2 - bigFrame / 2,
+              vertMiddlePoint - bigFrame / 2,
+              -0.04,
+            ]}
             variant="big"
-            size={[bigFrame, height, 0.15]}
+            size={[bigFrame, height - bigFrame, 0.15]}
+            usage="Middle"
           />
         </>
       )}
@@ -145,6 +159,7 @@ const Canvas = ({ size, decor }) => {
               baseDecor.height / 50,
               baseDecor.width / 100,
             ]}
+            usage="Base"
           />
           <DecorItem
             position={[
@@ -158,6 +173,7 @@ const Canvas = ({ size, decor }) => {
               baseDecor.height / 50,
               baseDecor.width / 100,
             ]}
+            usage="Base"
           />
         </>
       )}
