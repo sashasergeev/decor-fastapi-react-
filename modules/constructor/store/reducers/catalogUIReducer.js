@@ -1,7 +1,7 @@
 import { SET_UI } from "../types";
 
 const initialState = {
-  hideSettings: false,
+  hideSettings: true,
   hideSizeSets: false,
   hideDecSets: false,
 };

@@ -1,8 +1,5 @@
-import React from "react";
-
 import { useSelector, useDispatch } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actionCreators } from "../store";
+import { setUI, setCatalog, clearCatalog } from "../store/actions";
 
 import Catalog from "../catalog/Catalog";
 import * as styled from "../../../styles/constructor";
@@ -10,7 +7,6 @@ import * as styled from "../../../styles/constructor";
 const DecorSetting = () => {
   // redux
   const dispatch = useDispatch();
-  const ac = bindActionCreators(actionCreators, dispatch);
   const [usages, hide, chosenUsage] = useSelector(({ usage, ui, catalog }) => [
     usage,
     ui.hideDecSets,
@@ -19,7 +15,9 @@ const DecorSetting = () => {
 
   return (
     <styled.SettingBoxList>
-      <styled.SettingTitle onClick={() => ac.setUI("hideDecSets", !hide)}>
+      <styled.SettingTitle
+        onClick={() => dispatch(setUI("hideDecSets", !hide))}
+      >
         Декор
       </styled.SettingTitle>
       {!hide && !chosenUsage ? (
@@ -34,7 +32,7 @@ const DecorSetting = () => {
               )}
             </div>
             <styled.Button.Info
-              onClick={() => ac.setCatalog("chosenUsage", value.name)}
+              onClick={() => dispatch(setCatalog({ chosenUsage: value.name }))}
             >
               {value.chosen ? "Поменять" : "Выбрать"}
             </styled.Button.Info>
@@ -48,7 +46,7 @@ const DecorSetting = () => {
                 Выберите: {chosenUsage}
               </styled.DecorSetItemTitle>
             </div>
-            <styled.Button.Warn onClick={ac.clearCatalog}>
+            <styled.Button.Warn onClick={() => dispatch(clearCatalog())}>
               Назад
             </styled.Button.Warn>
           </styled.DecorSetItem>

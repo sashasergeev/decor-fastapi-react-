@@ -23,6 +23,7 @@ export const SceneBox = styled.div`
   width: 100%;
   height: ${(props) => (props.$hide ? "80vh" : "50vh")};
   position: relative;
+  background: gray;
 `;
 
 // Place where the settings of scene are placed

@@ -1,19 +1,17 @@
 import { useState } from "react";
 
 import { useDispatch } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actionCreators } from "../store";
+import { clearCatalog, setCatalog, setUI } from "../store/actions";
 
 const FrameBox = ({ position, size, variant, usage }) => {
   const [hover, setHover] = useState(false);
 
   const dispatch = useDispatch();
-  const ac = bindActionCreators(actionCreators, dispatch);
 
   const handleClick = () => {
-    ac.clearCatalog();
-    ac.setCatalog("chosenUsage", usage);
-    ac.setUI("hideSettings", false);
+    dispatch(clearCatalog());
+    dispatch(setCatalog({ chosenUsage: usage }));
+    dispatch(setUI("hideSettings", false));
   };
 
   return (

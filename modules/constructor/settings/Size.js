@@ -1,13 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actionCreators } from "../store";
+import { setUI } from "../store/actions";
 
 import * as styled from "../../../styles/constructor";
 
 const Size = ({ curr, heightRef, widthRef, applySize }) => {
   // redux
   const dispatch = useDispatch();
-  const ac = bindActionCreators(actionCreators, dispatch);
   const [hide, applies] = useSelector(({ ui, catalog }) => [
     ui.hideSizeSets,
     catalog.applies,
@@ -15,12 +13,14 @@ const Size = ({ curr, heightRef, widthRef, applySize }) => {
 
   const apply = () => {
     applySize();
-    ac.setUI("hideSizeSets", true);
+    dispatch(setUI("hideSizeSets", true));
   };
 
   return (
     <styled.SettingBoxList>
-      <styled.SettingTitle onClick={() => ac.setUI("hideSizeSets", !hide)}>
+      <styled.SettingTitle
+        onClick={() => dispatch(setUI("hideSizeSets", !hide))}
+      >
         Размер {applies === "Window" ? "окна" : "двери"}
       </styled.SettingTitle>
       {!hide && (

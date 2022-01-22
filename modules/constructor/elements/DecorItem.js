@@ -3,8 +3,7 @@ import { useLoader } from "@react-three/fiber";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
 
 import { useDispatch } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actionCreators } from "../store";
+import { clearCatalog, setCatalog, setUI, setFocus } from "../store/actions";
 
 const DecorItem = ({ id, position, size, rotate = 0, usage }) => {
   const [hover, setHover] = useState(false);
@@ -12,20 +11,21 @@ const DecorItem = ({ id, position, size, rotate = 0, usage }) => {
   const geom = useLoader(STLLoader, `/items/models/${id}.stl`).clone();
 
   const dispatch = useDispatch();
-  const ac = bindActionCreators(actionCreators, dispatch);
 
   useEffect(() => {
     const [x, y, z] = position;
-    ac.setFocus({
-      focus: { x, y, z },
-      zoom: true,
-    });
+    dispatch(
+      setFocus({
+        focus: { x, y, z },
+        zoom: true,
+      })
+    );
   }, [id]);
 
   const handleClick = () => {
-    ac.clearCatalog();
-    ac.setCatalog("chosenUsage", usage);
-    ac.setUI("hideSettings", false);
+    dispatch(clearCatalog());
+    dispatch(setCatalog({ chosenUsage: usage }));
+    dispatch(setUI("hideSettings", false));
   };
 
   return (

@@ -10,8 +10,7 @@ import {
   useSelector,
   useDispatch,
 } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actionCreators } from "../../modules/constructor/store/index";
+import { setApplies, fetchUsages, setUI } from "./store/actions";
 
 import { Canvas as CanvasBox } from "@react-three/fiber";
 import * as THREE from "three";
@@ -19,15 +18,15 @@ import * as THREE from "three";
 const Container = ({ elementOfDecor, defaultSize, Canvas }) => {
   // redux
   const dispatch = useDispatch();
-  const ac = bindActionCreators(actionCreators, dispatch);
   const [elements, hide] = useSelector(({ usage, ui }) => [
     usage,
     ui.hideSettings,
   ]);
 
   useEffect(() => {
-    ac.setApplies(elementOfDecor);
-    ac.fetchUsages(elementOfDecor);
+    dispatch(setApplies(elementOfDecor));
+    dispatch(fetchUsages(elementOfDecor));
+    setTimeout(() => dispatch(setUI("hideSettings", false)), 2000);
   }, []);
 
   // size related
@@ -68,7 +67,7 @@ const Container = ({ elementOfDecor, defaultSize, Canvas }) => {
             )}
           </ReactReduxContext.Consumer>
           <styled.SettingBoxHideBtn
-            onClick={() => ac.setUI("hideSettings", !hide)}
+            onClick={() => dispatch(setUI("hideSettings", !hide))}
           >
             {hide ? (
               <div>

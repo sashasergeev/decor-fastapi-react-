@@ -6,16 +6,19 @@ import PreviewItem from "../../common/PreviewItem";
 import * as styled from "../../../styles/constructor";
 
 import { useSelector, useDispatch } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actionCreators } from "../store";
+import {
+  fetchItems,
+  applyItem,
+  resetItem,
+  clearCatalog,
+} from "../store/actions";
 
 const CatalogList = () => {
   // redux
   const dispatch = useDispatch();
-  const ac = bindActionCreators(actionCreators, dispatch);
   const { items, chosenUsage } = useSelector(({ catalog }) => catalog);
 
-  useEffect(() => ac.fetchItems(), []);
+  useEffect(() => dispatch(fetchItems()), []);
 
   // chosen item
   const [item, setItem] = useState(false);
@@ -43,8 +46,8 @@ const CatalogList = () => {
       decor.height = height;
       decor.width = width;
     }
-    ac.applyItem(decor, chosenUsage);
-    ac.clearCatalog();
+    dispatch(applyItem(decor, chosenUsage));
+    dispatch(clearCatalog());
   };
   return (
     <>
@@ -98,7 +101,7 @@ const CatalogList = () => {
 
       {/* BUTTONS */}
       <styled.Catalog.ButtonGroup>
-        <styled.Button.Warn onClick={() => ac.resetItem(chosenUsage)}>
+        <styled.Button.Warn onClick={() => dispatch(resetItem(chosenUsage))}>
           Reset
         </styled.Button.Warn>
         {item && (

@@ -29,7 +29,7 @@ const catalogReducer = (state = initialState, action) => {
     case SET_CATALOG:
       return {
         ...state,
-        [action.key]: action.value,
+        ...action.payload,
       };
     case CLEAR_CATALOG:
       return {
