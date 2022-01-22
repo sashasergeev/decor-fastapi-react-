@@ -27,6 +27,7 @@ export const SceneBox = styled.div`
 
 // Place where the settings of scene are placed
 export const SettingBox = styled.div`
+  transition: 0.3s;
   width: 100%;
   overflow: hidden;
   background-color: #443c68;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLoader } from "@react-three/fiber";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
 
@@ -13,6 +13,14 @@ const DecorItem = ({ id, position, size, rotate = 0, usage }) => {
 
   const dispatch = useDispatch();
   const ac = bindActionCreators(actionCreators, dispatch);
+
+  useEffect(() => {
+    const [x, y, z] = position;
+    ac.setFocus({
+      focus: { x, y, z },
+      zoom: true,
+    });
+  }, [id]);
 
   const handleClick = () => {
     ac.clearCatalog();

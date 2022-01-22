@@ -12,3 +12,7 @@ export const CLEAR_CATALOG = "CLEAR_CATALOG";
 
 // ui
 export const SET_UI = "SET_UI";
+
+// scene
+export const SET_SCENE = "SET_SCENE";
+export const SET_CAMERA_DEFAULT = "SET_CAMERA_DEFAULT";

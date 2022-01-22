@@ -36,6 +36,7 @@ export const itemsByCategoryQuery = (chosenCategory) =>
           name
           height
           width
+          category_id
         }
       }
     }

@@ -15,6 +15,8 @@ import {
   SET_APPLIES,
   GET_ITEMS,
   CLEAR_CATALOG,
+  SET_SCENE,
+  SET_CAMERA_DEFAULT,
 } from "../types";
 
 // USAGES
@@ -109,5 +111,45 @@ export const setUI = (key, value) => (dispatch) => {
     type: SET_UI,
     key,
     value,
+  });
+};
+
+// SCENE
+export const setFocus = (payload) => (dispatch) => {
+  dispatch({
+    type: SET_UI,
+    key: "hideSettings",
+    value: true,
+  });
+
+  setTimeout(() => {
+    dispatch({
+      type: SET_SCENE,
+      payload,
+    });
+  }, 250);
+
+  setTimeout(() => {
+    dispatch({
+      type: SET_UI,
+      key: "hideSettings",
+      value: false,
+    });
+    dispatch({
+      type: SET_SCENE,
+      payload: { focus: {}, moveBack: true },
+    });
+  }, 4500);
+};
+
+export const setScene = (payload) => (dispatch) => {
+  dispatch({
+    type: SET_SCENE,
+    payload,
+  });
+};
+export const moveCameraBack = () => (dispatch) => {
+  dispatch({
+    type: SET_CAMERA_DEFAULT,
   });
 };
