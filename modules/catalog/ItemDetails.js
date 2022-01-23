@@ -5,12 +5,14 @@ const ItemDetails = ({ elem }) => {
     <div style={{ width: "-webkit-fill-available" }}>
       <Item.Title>{elem.name}</Item.Title>
       <Item.DetailsBox>
-        <Item.Detail>
-          <Icon.Height /> {elem.height}
-        </Item.Detail>
-        <Item.Detail>
-          <Icon.Width /> {elem.width}
-        </Item.Detail>
+        <div>
+          <Item.Detail>
+            <Icon.Height /> {elem.height}
+          </Item.Detail>
+          <Item.Detail>
+            <Icon.Width /> {elem.width}
+          </Item.Detail>
+        </div>
         <Item.Detail>
           <Icon.Price /> {elem.price}
         </Item.Detail>

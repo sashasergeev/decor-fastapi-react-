@@ -110,7 +110,7 @@ export const Item = {
     margin: 5px;
     justify-content: center;
     flex: 1;
-    background: #212121;
+    background: #818ca1;
     padding: 5px;
     border-radius: 5px;
   `,

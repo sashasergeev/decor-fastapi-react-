@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState, Suspense } from "react";
 import * as styled from "../../styles/constructor";
 import Size from "./settings/Size";
 import DecorSetting from "./settings/DecorSetting";
+import Price from "./price/Price";
 
 import {
   ReactReduxContext,
@@ -14,6 +15,7 @@ import { setApplies, fetchUsages, setUI } from "./store/actions";
 
 import { Canvas as CanvasBox } from "@react-three/fiber";
 import * as THREE from "three";
+import { toggleSettings } from "./store/actions/catalogUI";
 
 const Container = ({ elementOfDecor, defaultSize, Canvas }) => {
   // redux
@@ -66,9 +68,7 @@ const Container = ({ elementOfDecor, defaultSize, Canvas }) => {
               </CanvasBox>
             )}
           </ReactReduxContext.Consumer>
-          <styled.SettingBoxHideBtn
-            onClick={() => dispatch(setUI("hideSettings", !hide))}
-          >
+          <styled.SettingBoxHideBtn onClick={() => dispatch(toggleSettings())}>
             {hide ? (
               <div>
                 <styled.SettingIcon />
@@ -83,6 +83,10 @@ const Container = ({ elementOfDecor, defaultSize, Canvas }) => {
           </styled.SettingBoxHideBtn>
         </Suspense>
       </styled.SceneBox>
+
+      {/* Element where user can calculate price of chosen items */}
+
+      <Price />
     </>
   );
 };

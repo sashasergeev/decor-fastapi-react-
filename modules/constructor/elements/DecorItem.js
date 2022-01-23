@@ -3,7 +3,12 @@ import { useLoader } from "@react-three/fiber";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
 
 import { useDispatch } from "react-redux";
-import { clearCatalog, setCatalog, setUI, setFocus } from "../store/actions";
+import {
+  clearCatalog,
+  setCatalog,
+  setFocus,
+  toggleSettings,
+} from "../store/actions";
 
 const DecorItem = ({ id, position, size, rotate = 0, usage }) => {
   const [hover, setHover] = useState(false);
@@ -25,7 +30,7 @@ const DecorItem = ({ id, position, size, rotate = 0, usage }) => {
   const handleClick = () => {
     dispatch(clearCatalog());
     dispatch(setCatalog({ chosenUsage: usage }));
-    dispatch(setUI("hideSettings", false));
+    dispatch(toggleSettings("onItem"));
   };
 
   return (
@@ -40,7 +45,7 @@ const DecorItem = ({ id, position, size, rotate = 0, usage }) => {
       >
         <primitive object={geom} attach="geometry" />
         <meshStandardMaterial
-          color={usage && hover ? "#eb6392" : "#9e9ea3"}
+          color={usage && hover ? "#db5e88" : "#9e9ea3"}
           emissive="#333333"
           flatShading={true}
         />

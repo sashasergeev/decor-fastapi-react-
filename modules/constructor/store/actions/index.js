@@ -7,4 +7,4 @@ export {
   clearCatalog,
 } from "./catalog";
 export { setFocus, setScene, moveCameraBack } from "./scene";
-export { setUI } from "./catalogUI";
+export { setUI, toggleSettings, togglePrice } from "./catalogUI";

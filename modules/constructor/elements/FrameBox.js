@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { useDispatch } from "react-redux";
-import { clearCatalog, setCatalog, setUI } from "../store/actions";
+import { clearCatalog, setCatalog, toggleSettings } from "../store/actions";
 
 const FrameBox = ({ position, size, variant, usage }) => {
   const [hover, setHover] = useState(false);
@@ -11,7 +11,7 @@ const FrameBox = ({ position, size, variant, usage }) => {
   const handleClick = () => {
     dispatch(clearCatalog());
     dispatch(setCatalog({ chosenUsage: usage }));
-    dispatch(setUI("hideSettings", false));
+    dispatch(toggleSettings("onItem"));
   };
 
   return (

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import { FiSettings } from "react-icons/fi";
+import { MdBrowserNotSupported } from "react-icons/md";
 
 // main container of Constructor, where you can choose between scenes
 export const ConstructorContainer = styled.div`
@@ -216,5 +217,80 @@ export const ConstructorMenu = {
     justify-content: center;
     gap: 10px;
     padding: 5px 0px;
+  `,
+};
+
+export const StyledPrice = {
+  Box: styled.div`
+    transition: 0.4s;
+    width: 100%;
+    height: ${({ hide }) => (hide ? "0px" : "auto")};
+    position: fixed;
+    bottom: 0px;
+    background-color: #5e646f;
+    padding: ${({ hide }) => (hide ? "0px" : "15px")};
+  `,
+  Content: styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    overflow: hidden;
+    flex-wrap: wrap;
+
+    & > div {
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      min-height: 120px;
+      align-items: center;
+      gap: 5px;
+      flex-direction: column;
+      min-width: 120px;
+      background: #525061;
+      border-radius: 5px;
+
+      height: 100%;
+    }
+  `,
+  Usage: {
+    Title: styled.div`
+      font-size: 21px;
+    `,
+    Item: {
+      EmptyIcon: styled(MdBrowserNotSupported)`
+        height: 30px;
+        width: 30px;
+      `,
+      Size: styled.div`
+        font-size: 19px;
+      `,
+    },
+  },
+  HideBoxButton: styled.button`
+    cursor: pointer;
+    position: absolute;
+    top: -28px;
+    left: 0px;
+    border: none;
+    padding: 5px 21px;
+    border-radius: 0px 50px 0px 0px;
+    background: ${({ hide }) => (hide ? "#e34860" : "#df7c8b")};
+    font-size: 16px;
+    color: white;
+    transition: 0.2s;
+    &:hover {
+      background: #df7c8b;
+    }
+  `,
+  QuanityBtn: styled.button`
+    cursor: pointer;
+    padding: 5px 21px;
+    border: none;
+    border-radius: 3px;
+    font-size: 20px;
+    font-weight: 700;
+    background: none;
+    color: white;
   `,
 };

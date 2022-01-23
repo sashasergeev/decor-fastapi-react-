@@ -12,6 +12,8 @@ export const CLEAR_CATALOG = "CLEAR_CATALOG";
 
 // ui
 export const SET_UI = "SET_UI";
+export const TOGGLE_PRICE = "TOGGLE_PRICE";
+export const TOGGLE_SETTINGS = "TOGGLE_SETTINGS";
 
 // scene
 export const SET_SCENE = "SET_SCENE";
