@@ -1,6 +1,7 @@
 // usages
 export const GET_USAGES = "GET_USAGES";
 export const APPLY_ITEM = "APPLY_ITEM";
+export const SET_ITEM_LENGTH = "SET_ITEM_LENGTH";
 export const RESET_ITEM = "RESET_ITEM";
 
 // catalog

@@ -239,12 +239,12 @@ export const StyledPrice = {
     flex-wrap: wrap;
 
     & > div {
-      padding: 10px;
+      padding: 5px;
       display: flex;
       justify-content: center;
       min-height: 120px;
       align-items: center;
-      gap: 5px;
+      gap: 3px;
       flex-direction: column;
       min-width: 120px;
       background: #525061;

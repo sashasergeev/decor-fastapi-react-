@@ -5,31 +5,28 @@ import Size from "./settings/Size";
 import DecorSetting from "./settings/DecorSetting";
 import Price from "./price/Price";
 
+import { toggleSettings } from "./store/actions/catalogUI";
+
 import {
   ReactReduxContext,
   Provider,
   useSelector,
   useDispatch,
+  shallowEqual,
 } from "react-redux";
-import { setApplies, fetchUsages, setUI } from "./store/actions";
+import { initiateConstructor } from "./store/actions";
 
 import { Canvas as CanvasBox } from "@react-three/fiber";
 import * as THREE from "three";
-import { toggleSettings } from "./store/actions/catalogUI";
 
 const Container = ({ elementOfDecor, defaultSize, Canvas }) => {
   // redux
   const dispatch = useDispatch();
-  const [elements, hide] = useSelector(({ usage, ui }) => [
-    usage,
-    ui.hideSettings,
-  ]);
-
-  useEffect(() => {
-    dispatch(setApplies(elementOfDecor));
-    dispatch(fetchUsages(elementOfDecor));
-    setTimeout(() => dispatch(setUI("hideSettings", false)), 2000);
-  }, []);
+  const [elements, hide] = useSelector(
+    ({ usage, ui: { hideSettings } }) => [usage, hideSettings],
+    shallowEqual
+  );
+  useEffect(() => dispatch(initiateConstructor(elementOfDecor)), []);
 
   // size related
   const [size, setSize] = useState(defaultSize);
@@ -41,6 +38,7 @@ const Container = ({ elementOfDecor, defaultSize, Canvas }) => {
       width: +widthInput.current.value,
     });
   };
+
   return (
     <>
       <styled.SettingBox $hide={hide ? true : false}>
@@ -85,7 +83,6 @@ const Container = ({ elementOfDecor, defaultSize, Canvas }) => {
       </styled.SceneBox>
 
       {/* Element where user can calculate price of chosen items */}
-
       <Price />
     </>
   );

@@ -1,4 +1,3 @@
-import client from "../../../../apollo-client";
 import {
   categoriesByUsageQuery,
   itemsByCategoryQuery,
@@ -12,38 +11,22 @@ import {
   CLEAR_CATALOG,
 } from "../types";
 
-export const fetchCategories = () => (dispatch, getState) => {
-  const {
-    catalog: { applies, chosenUsage },
-  } = getState();
-
-  client
-    .query({
-      query: categoriesByUsageQuery(applies, chosenUsage),
-    })
-    .then((data) => {
-      dispatch({
-        type: GET_CATEGORIES,
-        payload: data.data.categories,
-      });
-    });
+export const fetchCategories = () => async (dispatch, getState, api) => {
+  const { applies, chosenUsage } = getState().catalog;
+  dispatch({
+    type: GET_CATEGORIES,
+    payload: (await api(categoriesByUsageQuery(applies, chosenUsage))).data
+      .categories,
+  });
 };
 
-export const fetchItems = () => (dispatch, getState) => {
-  const {
-    catalog: { chosenCategory },
-  } = getState();
-
-  client
-    .query({
-      query: itemsByCategoryQuery(chosenCategory),
-    })
-    .then((data) => {
-      dispatch({
-        type: GET_ITEMS,
-        payload: data.data.categories_by_pk.items,
-      });
-    });
+export const fetchItems = () => async (dispatch, getState, api) => {
+  const { chosenCategory } = getState().catalog;
+  dispatch({
+    type: GET_ITEMS,
+    payload: (await api(itemsByCategoryQuery(chosenCategory))).data
+      .categories_by_pk.items,
+  });
 };
 
 export const setApplies = (element) => (dispatch) => {

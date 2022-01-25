@@ -1,4 +1,4 @@
-import { GET_USAGES, APPLY_ITEM, RESET_ITEM } from "../types";
+import { GET_USAGES, APPLY_ITEM, SET_ITEM_LENGTH, RESET_ITEM } from "../types";
 
 const usageReducer = (state = {}, action) => {
   switch (action.type) {
@@ -10,6 +10,17 @@ const usageReducer = (state = {}, action) => {
         [action.usage]: {
           ...state[action.usage],
           chosen: action.payload,
+        },
+      };
+    case SET_ITEM_LENGTH:
+      return {
+        ...state,
+        [action.usage]: {
+          ...state[action.usage],
+          chosen: {
+            ...state[action.usage].chosen,
+            size: action.size,
+          },
         },
       };
     case RESET_ITEM:

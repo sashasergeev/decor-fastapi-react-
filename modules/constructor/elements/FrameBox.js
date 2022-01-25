@@ -1,18 +1,13 @@
 import { useState } from "react";
 
 import { useDispatch } from "react-redux";
-import { clearCatalog, setCatalog, toggleSettings } from "../store/actions";
+import { clickOnItem } from "../store/actions";
 
 const FrameBox = ({ position, size, variant, usage }) => {
   const [hover, setHover] = useState(false);
 
   const dispatch = useDispatch();
-
-  const handleClick = () => {
-    dispatch(clearCatalog());
-    dispatch(setCatalog({ chosenUsage: usage }));
-    dispatch(toggleSettings("onItem"));
-  };
+  const handleClick = () => dispatch(clickOnItem(usage));
 
   return (
     <mesh
