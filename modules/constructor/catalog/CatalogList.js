@@ -3,6 +3,7 @@ import { useState, useEffect, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 
 import PreviewItem from "../../common/PreviewItem";
+import SkeletonList from "./SkeletonList";
 import * as styled from "../../../styles/constructor";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -53,7 +54,7 @@ const CatalogList = () => {
     <>
       {/* ITEMS */}
       <styled.Catalog.Container>
-        {items &&
+        {items.length !== 0 ? (
           items.map((e, inx) => (
             <styled.Catalog.CategoryItem
               selected={item === e.name}
@@ -62,12 +63,17 @@ const CatalogList = () => {
             >
               {e.name}
             </styled.Catalog.CategoryItem>
-          ))}
+          ))
+        ) : (
+          <>
+            <SkeletonList width={234} height={23} size={5} />
+          </>
+        )}
       </styled.Catalog.Container>
 
       {/* PREVIEW OF ITEM */}
       <Suspense fallback={null}>
-        {item && (
+        {item ? (
           <>
             <styled.Input.Container>
               <label htmlFor="height">Высота</label>
@@ -90,12 +96,17 @@ const CatalogList = () => {
               />
             </styled.Input.Container>
             <Canvas
-              style={{ width: "220px" }}
+              style={{ width: "220px", height: "150px" }}
               camera={{ position: [0.8, 0.2, 0.4], fov: 50, near: 0.01 }}
             >
               <PreviewItem item={decor} />
             </Canvas>
           </>
+        ) : (
+          <styled.Catalog.EmptySelection>
+            <styled.StyledPrice.Usage.Item.EmptyIcon />
+            Выберите элемент...
+          </styled.Catalog.EmptySelection>
         )}
       </Suspense>
 

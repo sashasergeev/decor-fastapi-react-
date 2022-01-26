@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCategories, setCatalog } from "../store/actions";
 
+import SkeletonList from "./SkeletonList";
+
 import * as styled from "../../../styles/constructor";
 import CatalogList from "./CatalogList";
 
@@ -30,7 +32,7 @@ const Catalog = () => {
 
       {!category ? (
         <styled.Catalog.Container>
-          {categoriesList &&
+          {categoriesList.length !== 0 ? (
             categoriesList.map((e) => (
               <styled.Catalog.CategoryBox
                 key={e.id}
@@ -42,7 +44,10 @@ const Catalog = () => {
               >
                 {e.name}
               </styled.Catalog.CategoryBox>
-            ))}
+            ))
+          ) : (
+            <SkeletonList width={234} height={23} size={5} />
+          )}
         </styled.Catalog.Container>
       ) : (
         <>

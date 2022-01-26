@@ -1,7 +1,40 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 import { FiSettings } from "react-icons/fi";
 import { MdBrowserNotSupported } from "react-icons/md";
+
+const skeletLoading = keyframes`
+  from{
+    left: -200px;
+  }
+  to{
+    left: 100%
+  }
+`;
+
+export const SkeletElem = styled.div`
+  height: ${({ height }) => height - 5 + "px"};
+  width: ${({ width }) => width - 5 + "px"};
+  box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  margin: 5px 3px;
+  background: #443c68;
+
+  ::before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: -200px;
+    top: 0;
+    height: 100%;
+    width: 200px;
+    background: #7867be45;
+    border-radius: 10px;
+    animation: ${skeletLoading} 2000ms ease-out infinite;
+  }
+`;
 
 // main container of Constructor, where you can choose between scenes
 export const ConstructorContainer = styled.div`
@@ -15,56 +48,96 @@ export const ConstructorContainer = styled.div`
 export const SceneContainer = styled.div`
   display: flex;
   justify-content: center;
-  flex-direction: column;
   width: 100%;
+
+  @media (max-width: 1050px) {
+    flex-direction: column;
+  }
 `;
 
 // Place where the scene is placed
 export const SceneBox = styled.div`
   width: 100%;
-  height: ${(props) => (props.$hide ? "80vh" : "50vh")};
+  height: ${({ $size }) => ($size === "full" ? "80vh" : "40vh")};
   position: relative;
   background: gray;
+
+  @media (max-width: 768px) {
+    height: ${({ $size }) =>
+      $size === "full" ? "calc(100vh - 89px - 60px)" : "40vh"};
+  }
+  @media (min-width: 768px) and (max-width: 1050px) {
+    height: ${({ $size }) =>
+      $size === "full" ? "calc(100vh - 89px  - 100px)" : "40vh"};
+  }
+  @media (min-width: 1050px) {
+    height: 80vh;
+    width: ${({ $size }) => ($size === "full" ? "calc(70vw + 400px)" : "70vw")};
+  }
 `;
 
 // Place where the settings of scene are placed
 export const SettingBox = styled.div`
   transition: 0.3s;
-  width: 100%;
   overflow: hidden;
   background-color: #443c68;
   padding: ${(props) => (props.$hide ? "0px" : "20px")};
-  height: ${(props) => (props.$hide ? "0vh" : "662px")};
   color: white;
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
   justify-content: center;
   align-content: center;
+
+  @media (min-width: 1050px) {
+    width: ${(props) => (props.$hide ? "0px" : "400px")};
+  }
+  @media (max-width: 1050px) {
+    height: ${(props) => (props.$hide ? "0px" : "auto")};
+  }
 `;
 
-export const SettingBoxHideBtn = styled.div`
+export const HideBoxBtn = styled.div`
+  // common
   position: absolute;
-  top: 17px;
+  cursor: pointer;
+  border: none;
   left: 50%;
   right: 50%;
   padding: 8px 12px;
-  background: #254867;
-  border-radius: 0px 0px 10px 10px;
-  cursor: pointer;
+  height: fit-content;
   width: fit-content;
   transform: translate(-50%, -50%);
-  transition: 0.5s;
+  transition: 0.2s;
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 
+  // custom on body - pos property - border - bgcolor
+  ${({ body }) => body}
   &:hover {
-    background: #605688;
+    background: ${({ bgHover }) => bgHover};
   }
-  & div {
-    display: flex;
-    align-items: center;
-    gap: 7px;
+
+  @media (min-width: 1050px) {
+    top: 50%;
+    bottom: 50%;
+    border-radius: 10px;
+    flex-direction: column;
+
+    // custom on media query - pos properties
+    ${({ mediaqBody }) => mediaqBody}
+
+    & span {
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+    }
   }
 `;
+
 export const SettingIcon = styled(FiSettings)``;
 
 export const SettingBoxList = styled.div`
@@ -73,6 +146,7 @@ export const SettingBoxList = styled.div`
   border-radius: 8px;
   width: 250px;
   height: fit-content;
+  transition: 0.2s;
 `;
 
 export const SettingTitle = styled.h3`
@@ -133,33 +207,50 @@ export const Button = {
   `,
 };
 
+const onCatalogElemHover = `&:hover {background-color: #543b8c;}`;
+
 export const Catalog = {
   Container: styled.div`
     /* margin-top: 10px; */
-    background-color: #54368c;
-    border-radius: 8px;
-    max-height: 150px;
+    background-color: #443c68;
+    border-radius: 0px 0px 8px 8px;
+    height: 150px;
     overflow: overlay;
   `,
   Title: styled.div`
     text-align: center;
-    border-radius: 8px 0px 18px 0px;
-    background: #9357cc;
+    border-radius: 8px 8px 0px 0px;
+    background: #63509d;
     padding: 5px;
     margin-top: 15px;
   `,
   CategoryBox: styled.div`
     padding: 5px 3px;
+
+    ${onCatalogElemHover}
   `,
   CategoryItem: styled.div`
     padding: 5px 3px;
     background: ${(props) => (props.selected ? "#673ab7" : "transparent")};
     border-radius: ${(props) => (props.selected ? "5px" : "0px")};
+
+    ${onCatalogElemHover}
   `,
   ButtonGroup: styled.div`
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
+  `,
+  EmptySelection: styled.div`
+    height: 238px;
+    margin-top: 10px;
+    border: 2px dotted rgba(255, 255, 255, 0.43);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
   `,
 };
 
@@ -222,13 +313,26 @@ export const ConstructorMenu = {
 
 export const StyledPrice = {
   Box: styled.div`
-    transition: 0.4s;
-    width: 100%;
-    height: ${({ hide }) => (hide ? "0px" : "auto")};
-    position: fixed;
-    bottom: 0px;
+    width: ${({ hide }) => (hide ? "0px" : "400px")};
     background-color: #5e646f;
     padding: ${({ hide }) => (hide ? "0px" : "15px")};
+    transition: 0.2s;
+
+    @media (max-width: 1050px) {
+      transition: 0s;
+      bottom: 0px;
+      position: fixed;
+      width: 100vw;
+      height: ${({ hide }) => (hide ? "0px" : "295px")};
+    }
+    @media (min-width: 768px) and (max-width: 1050px) {
+      height: ${({ hide }) =>
+        hide ? "0px" : "calc(100vh - 100px - 40vh - 89px)"};
+    }
+    @media (max-width: 768px) {
+      height: ${({ hide }) =>
+        hide ? "0px" : "calc(100vh - 60px - 40vh - 89px)"};
+    }
   `,
   Content: styled.div`
     display: flex;
@@ -237,6 +341,7 @@ export const StyledPrice = {
     gap: 15px;
     overflow: hidden;
     flex-wrap: wrap;
+    height: 100%;
 
     & > div {
       padding: 5px;
@@ -244,13 +349,12 @@ export const StyledPrice = {
       justify-content: center;
       min-height: 120px;
       align-items: center;
+      align-content: center;
       gap: 3px;
       flex-direction: column;
       min-width: 120px;
       background: #525061;
       border-radius: 5px;
-
-      height: 100%;
     }
   `,
   Usage: {
@@ -267,22 +371,6 @@ export const StyledPrice = {
       `,
     },
   },
-  HideBoxButton: styled.button`
-    cursor: pointer;
-    position: absolute;
-    top: -28px;
-    left: 0px;
-    border: none;
-    padding: 5px 21px;
-    border-radius: 0px 50px 0px 0px;
-    background: ${({ hide }) => (hide ? "#e34860" : "#df7c8b")};
-    font-size: 16px;
-    color: white;
-    transition: 0.2s;
-    &:hover {
-      background: #df7c8b;
-    }
-  `,
   QuanityBtn: styled.button`
     cursor: pointer;
     padding: 5px 21px;

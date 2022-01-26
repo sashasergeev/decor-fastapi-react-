@@ -3,41 +3,55 @@ import { setUI, setCatalog, clearCatalog } from "../store/actions";
 
 import Catalog from "../catalog/Catalog";
 import * as styled from "../../../styles/constructor";
+import SkeletonList from "../catalog/SkeletonList";
 
 const DecorSetting = () => {
   // redux
   const dispatch = useDispatch();
-  const [usages, hide, chosenUsage] = useSelector(({ usage, ui, catalog }) => [
-    usage,
-    ui.hideDecSets,
-    catalog.chosenUsage,
-  ]);
+  const [usages, hide, chosenUsage, category] = useSelector(
+    ({ usage, ui, catalog }) => [
+      usage,
+      ui.hideDecSets,
+      catalog.chosenUsage,
+      catalog.chosenCategory,
+    ]
+  );
+
+  const onTitleClick = () => {
+    dispatch(setUI("hideDecSets", !hide));
+    dispatch(clearCatalog());
+  };
 
   return (
-    <styled.SettingBoxList>
-      <styled.SettingTitle
-        onClick={() => dispatch(setUI("hideDecSets", !hide))}
-      >
-        Декор
-      </styled.SettingTitle>
+    <styled.SettingBoxList
+      id="decorSettings"
+      style={category ? { height: "582px" } : {}}
+    >
+      <styled.SettingTitle onClick={onTitleClick}>Декор</styled.SettingTitle>
       {!hide && !chosenUsage ? (
-        Object.entries(usages).map(([key, value], inx) => (
-          <styled.DecorSetItem key={inx}>
-            <div>
-              <styled.DecorSetItemTitle>{key}</styled.DecorSetItemTitle>
-              {value.chosen ? (
-                <>Выбрано: {value.chosen.name}</>
-              ) : (
-                <>Не выбрано...</>
-              )}
-            </div>
-            <styled.Button.Info
-              onClick={() => dispatch(setCatalog({ chosenUsage: value.name }))}
-            >
-              {value.chosen ? "Поменять" : "Выбрать"}
-            </styled.Button.Info>
-          </styled.DecorSetItem>
-        ))
+        Object.keys(usages).length !== 0 ? (
+          Object.entries(usages).map(([key, value], inx) => (
+            <styled.DecorSetItem key={inx}>
+              <div>
+                <styled.DecorSetItemTitle>{key}</styled.DecorSetItemTitle>
+                {value.chosen ? (
+                  <>Выбрано: {value.chosen.name}</>
+                ) : (
+                  <>Не выбрано...</>
+                )}
+              </div>
+              <styled.Button.Info
+                onClick={() =>
+                  dispatch(setCatalog({ chosenUsage: value.name }))
+                }
+              >
+                {value.chosen ? "Поменять" : "Выбрать"}
+              </styled.Button.Info>
+            </styled.DecorSetItem>
+          ))
+        ) : (
+          <SkeletonList width={234} height={65} size={3} />
+        )
       ) : !hide && chosenUsage ? (
         <>
           <styled.DecorSetItem>

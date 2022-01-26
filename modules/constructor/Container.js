@@ -4,8 +4,8 @@ import * as styled from "../../styles/constructor";
 import Size from "./settings/Size";
 import DecorSetting from "./settings/DecorSetting";
 import Price from "./price/Price";
-
-import { toggleSettings } from "./store/actions/catalogUI";
+import { default as PriceButton } from "./price/Button";
+import { default as SettingsButton } from "./settings/Button";
 
 import {
   ReactReduxContext,
@@ -22,8 +22,8 @@ import * as THREE from "three";
 const Container = ({ elementOfDecor, defaultSize, Canvas }) => {
   // redux
   const dispatch = useDispatch();
-  const [elements, hide] = useSelector(
-    ({ usage, ui: { hideSettings } }) => [usage, hideSettings],
+  const [elements, hideSettings, hidePrice] = useSelector(
+    ({ usage, ui }) => [usage, ui.hideSettings, ui.hidePrice],
     shallowEqual
   );
   useEffect(() => dispatch(initiateConstructor(elementOfDecor)), []);
@@ -41,7 +41,7 @@ const Container = ({ elementOfDecor, defaultSize, Canvas }) => {
 
   return (
     <>
-      <styled.SettingBox $hide={hide ? true : false}>
+      <styled.SettingBox $hide={hideSettings ? true : false}>
         <Size
           curr={size}
           heightRef={heightInput}
@@ -50,7 +50,7 @@ const Container = ({ elementOfDecor, defaultSize, Canvas }) => {
         />
         <DecorSetting />
       </styled.SettingBox>
-      <styled.SceneBox $hide={hide ? true : false}>
+      <styled.SceneBox $size={hideSettings && hidePrice ? "full" : false}>
         <Suspense fallback={null}>
           {/* need to wrap content of canvas in context because it breaks it if outside */}
           <ReactReduxContext.Consumer>
@@ -66,20 +66,9 @@ const Container = ({ elementOfDecor, defaultSize, Canvas }) => {
               </CanvasBox>
             )}
           </ReactReduxContext.Consumer>
-          <styled.SettingBoxHideBtn onClick={() => dispatch(toggleSettings())}>
-            {hide ? (
-              <div>
-                <styled.SettingIcon />
-                <span>настройки</span>
-              </div>
-            ) : (
-              <div>
-                <styled.SettingIcon />
-                <span>cкрыть</span>
-              </div>
-            )}
-          </styled.SettingBoxHideBtn>
         </Suspense>
+        <SettingsButton />
+        <PriceButton />
       </styled.SceneBox>
 
       {/* Element where user can calculate price of chosen items */}

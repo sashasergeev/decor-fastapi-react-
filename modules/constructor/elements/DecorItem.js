@@ -31,7 +31,9 @@ const DecorItem = ({ id, position, size, rotate = 0, usage }) => {
   }, [id]);
 
   // handle click on an object to change current item of its usage
-  const handleClick = () => dispatch(clickOnItem(usage));
+  const handleClick = () => {
+    dispatch(clickOnItem(usage));
+  };
 
   return (
     <>

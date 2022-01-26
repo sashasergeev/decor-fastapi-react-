@@ -32,4 +32,7 @@ export const clickOnItem = (applies) => (dispatch) => {
     dispatch(toggleSettings("onItem"));
     dispatch(setCatalog({ chosenUsage: applies }));
   });
+  document
+    .querySelector("#decorSettings")
+    .scrollIntoView({ behavior: "smooth", block: "center" });
 };
