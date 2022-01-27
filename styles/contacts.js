@@ -143,4 +143,13 @@ export const FormElem = {
     background: #d3d3d3;
     border-radius: 9999px;
   `,
+  Error: styled.div`
+    text-align: center;
+    padding: 5px 10px;
+    border: 2px solid red;
+    font-weight: 600;
+    border-radius: 9999px;
+    margin-bottom: 10px;
+    color: #ff4c4c;
+  `,
 };

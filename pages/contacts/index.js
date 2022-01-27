@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { useState } from "react";
 
 import {
   Container,
@@ -10,29 +9,46 @@ import {
   ContentBox,
   FormElem,
 } from "../../styles/contacts";
+import Spinner from "../../modules/common/Spinner";
+
+import { gql, useMutation } from "@apollo/client";
+import client from "../../apollo-client";
+
+const SUBMIT_CONTACT = gql`
+  mutation submitContact(
+    $email: String
+    $message: String
+    $name: String
+    $phone: numeric
+  ) {
+    insert_submit_one(
+      object: { email: $email, message: $message, name: $name, phone: $phone }
+    ) {
+      id
+    }
+  }
+`;
 
 const Contacts = () => {
-  const [submitted, setSubmitted] = useState(false);
+  const [sendForm, { data, loading, error }] = useMutation(SUBMIT_CONTACT, {
+    client,
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // const data = [...e.target].reduce(
-    //   (obj, curr) => (curr.id ? { ...obj, [curr.id]: curr.value } : { ...obj }),
-    //   {}
-    // );
-    // const url = "http://127.0.0.1:8000/users/submit";
-    // fetch(url, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(data),
-    // })
-    //   .then((res) => setSubmitted(true))
-    //   .catch((err) => setSubmitted(false));
+    const { email, message, phone, name } = [...e.target].reduce(
+      (obj, curr) => (curr.id ? { ...obj, [curr.id]: curr.value } : { ...obj }),
+      {}
+    );
+    sendForm({
+      variables: {
+        email,
+        message,
+        phone,
+        name,
+      },
+    });
   };
-
   return (
     <>
       <Head>
@@ -49,7 +65,20 @@ const Contacts = () => {
               Оставьте свои контактные данные и мы обязательно свяжемся для
               более подробного обсуждения вашего проекта.
             </FormElem.Text>
-            {!submitted ? (
+            {error && !loading && (
+              <FormElem.Error>
+                Произошла ошибка. Повторите отправку данных.
+              </FormElem.Error>
+            )}
+            {data && !error ? (
+              <FormElem.Success>
+                <Icon.Done /> Сообщение отправлено
+              </FormElem.Success>
+            ) : loading ? (
+              <FormElem.Success>
+                <Spinner />
+              </FormElem.Success>
+            ) : (
               <FormElem.Form onSubmit={handleSubmit}>
                 <FormElem.Input
                   placeholder="Имя"
@@ -77,10 +106,6 @@ const Contacts = () => {
                 />
                 <FormElem.SumbitBtn type="submit" value="ОТПРАВИТЬ" />
               </FormElem.Form>
-            ) : (
-              <FormElem.Success>
-                <Icon.Done /> Сообщение отправлено
-              </FormElem.Success>
             )}
           </FormElem.Container>
 
