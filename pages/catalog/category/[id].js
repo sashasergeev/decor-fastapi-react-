@@ -60,8 +60,12 @@ import {
   BackBtn,
   Icon,
 } from "../../../styles/catalog";
-import ItemModal from "../../../modules/catalog/ItemModal";
-import ItemDetails from "../../../modules/catalog/ItemDetails";
+
+import dynamic from "next/dynamic";
+const ItemModal = dynamic(() => import("../../../modules/catalog/ItemModal"));
+const ItemDetails = dynamic(() =>
+  import("../../../modules/catalog/ItemDetails")
+);
 
 const CategoryDetail = ({ category, items }) => {
   // modal

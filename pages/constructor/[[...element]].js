@@ -5,11 +5,13 @@ import Head from "next/head";
 import { Provider } from "react-redux";
 import { store } from "../../modules/constructor/store/store";
 
-import Window from "../../modules/constructor/window/Window";
-import Door from "../../modules/constructor/door/Door";
-
 import * as styled from "../../styles/constructor";
 import { Welcome } from "../../styles/index";
+
+import dynamic from "next/dynamic";
+// dynamically import these components - to improve perfomance
+const Window = dynamic(() => import("../../modules/constructor/window/Window"));
+const Door = dynamic(() => import("../../modules/constructor/door/Door"));
 
 const Constructor = () => {
   const router = useRouter();
