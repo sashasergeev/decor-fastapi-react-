@@ -64,7 +64,7 @@ export const LinkS = styled.a`
   }
   /* Active handler */
   ${({ pathName, href }) =>
-    pathName === href
+    "/" + pathName.split("/")[1] === href
       ? "color: white; background: #cac0db;"
       : "color: #333333; "}
 `;
