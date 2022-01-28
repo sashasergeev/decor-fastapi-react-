@@ -12,12 +12,17 @@ import { IoPricetagOutline as PriceIcon } from "react-icons/io5";
 export const SectionTitle = styled.h1`
   margin: auto;
   width: fit-content;
-  padding: 5px 15px;
+  padding: 15px;
   border-radius: 7px;
-  margin-top: 120px;
 `;
 
 export const Container = styled.div`
+  background: #2f2b3b;
+  overflow: hidden;
+  min-height: calc(100vh - 100px);
+`;
+
+export const ContentContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

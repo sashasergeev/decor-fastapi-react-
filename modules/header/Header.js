@@ -25,7 +25,7 @@ const Header = () => {
   const triggerDrawer = () => setIsDrawerOpen(!isDrawerOpen);
 
   return (
-    <Nav>
+    <>
       <ContactContainer>
         <ContactItem>
           <Icon.Phone />
@@ -39,42 +39,43 @@ const Header = () => {
           info@decolight.com
         </ContactItem>
       </ContactContainer>
-      <MenuContainer>
-        <Link href="/" passHref>
-          <Logo>DecoLight</Logo>
-        </Link>
-        <Ul>
-          <Li>
-            <Link href="/" passHref>
-              <LinkS pathName={router.pathname}>Главная</LinkS>
-            </Link>
-          </Li>
-          <Li>
-            <Link href="/catalog" passHref>
-              <LinkS pathName={router.pathname}>Каталог</LinkS>
-            </Link>
-          </Li>
-          <Li>
-            <Link href="/constructor" passHref>
-              <LinkS pathName={router.pathname}>Конструктор</LinkS>
-            </Link>
-          </Li>
-          <Li>
-            <Link href="/contacts" passHref>
-              <LinkS pathName={router.pathname}>Контакты</LinkS>
-            </Link>
-          </Li>
-        </Ul>
-
-        <DrawerBtnElem onClick={triggerDrawer} />
-        <Drawer trigger={triggerDrawer} isOpen={isDrawerOpen} />
-        {isDrawerOpen && (
-          <>
-            <BackDrop onClick={triggerDrawer} />
-          </>
-        )}
-      </MenuContainer>
-    </Nav>
+      <Nav>
+        <MenuContainer>
+          <Link href="/" passHref>
+            <Logo>DecoLight</Logo>
+          </Link>
+          <Ul>
+            <Li>
+              <Link href="/" passHref>
+                <LinkS pathName={router.pathname}>Главная</LinkS>
+              </Link>
+            </Li>
+            <Li>
+              <Link href="/catalog" passHref>
+                <LinkS pathName={router.pathname}>Каталог</LinkS>
+              </Link>
+            </Li>
+            <Li>
+              <Link href="/constructor" passHref>
+                <LinkS pathName={router.pathname}>Конструктор</LinkS>
+              </Link>
+            </Li>
+            <Li>
+              <Link href="/contacts" passHref>
+                <LinkS pathName={router.pathname}>Контакты</LinkS>
+              </Link>
+            </Li>
+          </Ul>
+          <DrawerBtnElem onClick={triggerDrawer} />
+          <Drawer trigger={triggerDrawer} isOpen={isDrawerOpen} />
+          {isDrawerOpen && (
+            <>
+              <BackDrop onClick={triggerDrawer} />
+            </>
+          )}
+        </MenuContainer>
+      </Nav>
+    </>
   );
 };
 

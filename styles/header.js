@@ -14,16 +14,18 @@ export const Icon = {
 };
 
 export const Nav = styled.nav`
-  position: fixed;
+  /* position: fixed; */
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
-  height: 100px;
-  background-color: #ffffff;
+  height: 60px;
+  background-color: #d8d8d8e3;
   z-index: 1000;
-  @media (max-width: 768px) {
+  box-shadow: 0px 13px 20px 0px #3e3e3e29;
+  /* @media (max-width: 768px) {
     height: 60px;
-  }
+  } */
 `;
 
 export const Logo = styled.a`
@@ -56,7 +58,6 @@ export const LinkS = styled.a`
   text-decoration: none;
   padding: 5px 10px;
   border-radius: 3px;
-  transition: 0.3s;
 
   &:hover {
     color: white;
@@ -65,23 +66,26 @@ export const LinkS = styled.a`
   /* Active handler */
   ${({ pathName, href }) =>
     "/" + pathName.split("/")[1] === href
-      ? "color: white; background: #cac0db;"
+      ? "color: white; background: linear-gradient(90deg, #673ab7a8 7%, rgb(53 53 66 / 66%) 80%); &:hover {background: linear-gradient(90deg, #673ab7eb 7%, rgb(53 53 66 / 86%) 80%);}"
       : "color: #333333; "}
+  transition: 0.3s;
 `;
 
 export const ContactContainer = styled.div`
   height: 40px;
-  border-bottom: 1px solid #e9e9e9;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  background: #e7e7e7;
+  border-radius: 0px 0px 9999px 9999px;
+  box-shadow: inset 0px -3px 0px 1px #b08feb;
 
   @media (max-width: 768px) {
     display: none;
   }
 `;
 export const ContactItem = styled.div`
-  color: #494257b0;
+  color: #2f2b3b;
   font-size: 14px;
   flex: 1;
   text-align: center;
@@ -90,11 +94,12 @@ export const ContactItem = styled.div`
   gap: 8px;
   align-items: center;
   & > svg {
-    color: #494257d1;
+    color: #2f2b3b;
   }
 `;
 
 export const MenuContainer = styled.div`
+  /* position: sticky; */
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -120,7 +125,7 @@ export const DrawerElem = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 40px;
-    justify-content: space-evenly;
+    justify-content: flex-start;
   }
 `;
 
@@ -160,5 +165,8 @@ export const ContactContainerDrawer = styled.div`
   justify-content: space-around;
   align-items: center;
   flex-direction: column;
-  gap: 10px;
+  gap: 3px;
+  background: #ccbde6;
+  border-radius: 5px;
+  padding: 5px;
 `;

@@ -4,10 +4,8 @@ import { Icon as Icons } from "./header";
 import { MdDoneOutline as DoneIcon } from "react-icons/md";
 
 export const Container = styled.div`
-  width: 100vw;
-  margin: 0 auto;
   background-color: #2f2b3b;
-  height: calc(100vh - 100px);
+  min-height: calc(100vh - 100px);
   @media (max-width: 768px) {
     width: 100vw;
     height: fit-content;
@@ -30,6 +28,7 @@ export const Title = styled.h1`
   text-align: center;
   color: white;
   padding: 30px 0 5px 0;
+  margin: 0;
   font-size: 22px;
 `;
 
@@ -72,7 +71,7 @@ export const ContactElem = {
     align-items: center;
   `,
   Box: styled.div`
-    flex: 1;
+    flex: 3 370px;
     padding: 20px;
   `,
 };
@@ -94,7 +93,7 @@ const FieldSkelet = `
 
 export const FormElem = {
   Container: styled.div`
-    flex: 1;
+    flex: 1 370px;
     background: white;
     border-radius: 10px;
     padding: 20px;

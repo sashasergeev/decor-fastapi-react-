@@ -28,6 +28,10 @@ export const Welcome = {
 
     text-align: center;
     padding: 25px;
+
+    @media (max-height: 768px) {
+      height: 70vh;
+    }
   `,
   Title: styled.h1`
     max-width: 1000px;
@@ -164,7 +168,9 @@ export const Icon = {
     width: 45px;
     height: 45px;
     transform: rotate(90deg);
-    background: #a6a6a6;
+    & path {
+      stroke: #ae8be9;
+    }
   `,
   Point: styled(PointIcon)`
     height: 20px;

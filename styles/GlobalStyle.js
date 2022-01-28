@@ -17,11 +17,11 @@ export const GlobalStyle = createGlobalStyle`
     body {
       overscroll-behavior-y: none;
       color: white;
-      background: #c4c4c4;
-      margin-top: 100px;
+      background: #dcdcdc;
+      /* margin-top: 100px;
       @media (max-width: 768px) {
         margin-top: 60px;
-  }
+      } */
 
     }
 `;
