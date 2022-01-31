@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Image from "next/image";
 
 import { Welcome, About, Card, Flow, Icon } from "../styles/index";
 
@@ -12,7 +13,13 @@ export default function Home() {
 
       {/* WELCOME SECTION */}
       <Welcome.Box>
-        <Welcome.Image src="images/main-profile.png" alt="" />
+        <Image
+          layout="intrinsic"
+          width={650}
+          height={157}
+          src="/images/main-profile.png"
+          alt=""
+        />
         <div>
           <Welcome.Title>Фасадный Декор от производителя</Welcome.Title>
           <Welcome.Text>
@@ -34,9 +41,11 @@ export default function Home() {
         <Card.Box>
           <Card.Elem>
             <Card.Title>Преимущества</Card.Title>
-            <Welcome.Image
-              style={{ height: "auto", width: "250px" }}
-              src="images/decor-example.png"
+            <Image
+              layout="intrinsic"
+              src="/images/decor-example.png"
+              width={250}
+              height={127}
               alt=""
             />
             <ul>
@@ -56,9 +65,11 @@ export default function Home() {
           </Card.Elem>
           <Card.Elem>
             <Card.Title>Состав</Card.Title>
-            <Welcome.Image
-              style={{ height: "auto", width: "250px" }}
-              src="images/decor-inners.png"
+            <Image
+              layout="intrinsic"
+              src="/images/decor-inners.png"
+              width={250}
+              height={127}
               alt=""
             />
             <ul>

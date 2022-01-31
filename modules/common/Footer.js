@@ -14,6 +14,13 @@ const FooterElem = styled.div`
     text-decoration: none;
     padding-left: 20px;
   }
+
+  @media (max-width: 864px) {
+    & > :nth-child(2) {
+      display: none;
+    }
+    height: 60px;
+  }
 `;
 
 const Footer = () => {
