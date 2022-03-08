@@ -9,6 +9,8 @@ import {
   ContentBox,
 } from "../../styles/contacts";
 
+import { ApolloProvider } from "@apollo/client";
+import client from "../../apollo-client";
 import dynamic from "next/dynamic";
 const Form = dynamic(() => import("../../modules/contacts/Form"));
 
@@ -23,7 +25,9 @@ const Contacts = () => {
       <Container>
         <Title>НАШИ КОНТАКТЫ</Title>
         <ContentBox>
-          <Form />
+          <ApolloProvider client={client}>
+            <Form />
+          </ApolloProvider>
           <ContactElem.Box>
             <Text>
               Если у вас есть вопросы или идеи, которыми вы бы хотели

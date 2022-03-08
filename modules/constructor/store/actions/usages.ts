@@ -25,7 +25,8 @@ export const fetchUsages =
     api: (arg0: DocumentNode) => ApiType
   ) => {
     const { applies } = getState().catalog;
-    const data: DecorUsage[] = (await api(usagesQuery(applies))).data.usages;
+    const data: DecorUsage[] =
+      applies && (await api(usagesQuery(applies))).data.usages;
     dispatch({
       type: GET_USAGES,
       payload: data.reduce(

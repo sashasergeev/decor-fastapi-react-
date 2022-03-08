@@ -1,12 +1,11 @@
-import { SyntheticEvent } from 'react'
+import { SyntheticEvent, useState } from "react";
 import { gql, useMutation } from "@apollo/client";
-import client from "../../apollo-client";
 
 import Spinner from "../common/Spinner";
 
 import { FormElem, Icon } from "../../styles/contacts";
 
-const SUBMIT_CONTACT = gql`
+export const SUBMIT_CONTACT = gql`
   mutation submitContact(
     $email: String
     $message: String
@@ -23,25 +22,28 @@ const SUBMIT_CONTACT = gql`
 
 const Form = () => {
   const [sendForm, { data, loading, error }] = useMutation(SUBMIT_CONTACT, {
-    client,
+    errorPolicy: "all",
   });
 
-  const handleSubmit = (e : SyntheticEvent) => {
+  const [name, setName] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+
+  const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
-    const target = e.target as typeof e.target & {
-      email: { value: string };
-      message: { value: string };
-      phone: { value: string };
-      name: { value: string };
-    };
-    sendForm({
-      variables: {
-        email: target.email.value,
-        message: target.message.value,
-        phone: target.phone.value,
-        name: target.name.value,
-      },
-    });
+    try {
+      await sendForm({
+        variables: {
+          email,
+          message,
+          phone,
+          name,
+        },
+      });
+    } catch (e) {
+      // console.log(e);
+    }
   };
 
   return (
@@ -51,38 +53,48 @@ const Form = () => {
         Оставьте свои контактные данные и мы обязательно свяжемся для более
         подробного обсуждения вашего проекта.
       </FormElem.Text>
-      {error && !loading && (
+      {error && (
         <FormElem.Error>
           Произошла ошибка. Повторите отправку данных.
         </FormElem.Error>
       )}
-      {data && !error ? (
+      {data ? (
         <FormElem.Success>
           <Icon.Done /> Сообщение отправлено
         </FormElem.Success>
       ) : loading ? (
         <FormElem.Success>
           <Spinner />
+          идёт отправка...
         </FormElem.Success>
       ) : (
         <FormElem.Form onSubmit={handleSubmit}>
-          <FormElem.Input placeholder="Имя" name="name" id="name" type="text" />
+          <FormElem.Input
+            placeholder="Имя"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            type="text"
+            aria-label="name"
+          />
           <FormElem.Input
             placeholder="Телефон"
-            name="phone"
-            id="phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
             type="text"
+            aria-label="phone"
           />
           <FormElem.Input
             placeholder="Электронная почта"
-            name="email"
-            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             type="text"
+            aria-label="email"
           />
           <FormElem.TextArea
             placeholder="Сообщение"
-            name="message"
-            id="message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            aria-label="message"
           />
           <FormElem.SumbitBtn type="submit" value="ОТПРАВИТЬ" />
         </FormElem.Form>

@@ -16,21 +16,22 @@ import {
 import dynamic from "next/dynamic";
 import DecorItemInterface from "../../../api/DecorItemInterface";
 const ItemModal = dynamic(() => import("../../../modules/catalog/ItemModal"));
-const ItemDetails = dynamic(() =>
-  import("../../../modules/catalog/ItemDetails")
+const ItemDetails = dynamic(
+  () => import("../../../modules/catalog/ItemDetails")
 );
 
 export const getStaticPaths = async () => {
-  const { data } : {data: {categories: {id: number}[]}} = await client.query({
-    query: gql`
-      query CategoryList {
-        categories {
-          id
+  const { data }: { data: { categories: { id: number }[] } } =
+    await client.query({
+      query: gql`
+        query CategoryList {
+          categories {
+            id
+          }
         }
-      }
-    `,
-  });
-  const paths = data.categories.map((e : {id: number}) => ({
+      `,
+    });
+  const paths = data.categories.map((e: { id: number }) => ({
     params: {
       id: e.id.toString(),
     },
@@ -42,21 +43,24 @@ export const getStaticPaths = async () => {
   };
 };
 
-
 interface StaticPropsFetchI {
   data: {
     categories_by_pk: {
       name: string;
-      items: DecorItemInterface[]
-    }
-  }
+      items: DecorItemInterface[];
+    };
+  };
 }
 type StatisPropsType = StaticPropsFetchI | undefined;
-export const getStaticProps = async ({ params } : {params: {id: string}}) => {
+export const getStaticProps = async ({
+  params,
+}: {
+  params: { id: string };
+}) => {
   const res: StatisPropsType = await client.query({
     query: gql`
       query ItemsByCategory${params.id} {
-        categories_by_pkk(id: ${params.id}) {
+        categories_by_pk(id: ${params.id}) {
           name
           items {
             id
@@ -71,7 +75,8 @@ export const getStaticProps = async ({ params } : {params: {id: string}}) => {
   });
 
   const category: string | undefined = res?.data?.categories_by_pk.name;
-  const items: DecorItemInterface[] | undefined = res?.data?.categories_by_pk.items;
+  const items: DecorItemInterface[] | undefined =
+    res?.data?.categories_by_pk.items;
 
   return {
     props: {
@@ -83,10 +88,10 @@ export const getStaticProps = async ({ params } : {params: {id: string}}) => {
 
 interface CategoryDetailProps {
   category: string;
-  items: DecorItemInterface[]
+  items: DecorItemInterface[];
 }
 
-const CategoryDetail = ({ category, items } : CategoryDetailProps) => {
+const CategoryDetail = ({ category, items }: CategoryDetailProps) => {
   // modal
   const [modal, setModal] = useState<DecorItemInterface | undefined>(undefined);
 
