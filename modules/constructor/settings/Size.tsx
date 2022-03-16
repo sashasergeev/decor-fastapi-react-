@@ -1,17 +1,18 @@
-import { setUI } from "../store/actions";
-
+import { useState } from "react";
 import * as styled from "../../../styles/constructor";
 import { SizesType } from "../Container";
-import { useAppSelector, useAppDispatch } from "../store/hooks";
+import { setUI } from "../store/actions";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 
 interface SizePropsI {
   curr: SizesType;
-  heightRef: any;
-  widthRef: any;
-  applySize: () => void;
+  applySize: (height: number, width: number) => void;
 }
 
-const Size = ({ curr, heightRef, widthRef, applySize }: SizePropsI) => {
+const Size = ({ curr, applySize }: SizePropsI) => {
+  const [height, setHeight] = useState(curr.height);
+  const [width, setWidth] = useState(curr.width);
+
   // redux
   const dispatch = useAppDispatch();
   const { hide, applies } = useAppSelector(({ ui, catalog }) => ({
@@ -20,7 +21,7 @@ const Size = ({ curr, heightRef, widthRef, applySize }: SizePropsI) => {
   }));
 
   const apply = () => {
-    applySize();
+    applySize(height, width);
     dispatch(setUI("hideSizeSets", true));
   };
 
@@ -34,31 +35,31 @@ const Size = ({ curr, heightRef, widthRef, applySize }: SizePropsI) => {
       {!hide && (
         <>
           <styled.Input.Container>
-            <label htmlFor="height">Height</label>
+            <label htmlFor="height">Высота</label>
             <input
               type="number"
               id="height"
               name="height"
-              defaultValue={curr.height}
-              ref={heightRef}
+              onChange={(e) => setHeight(+e.target.value)}
+              value={height}
             />
           </styled.Input.Container>
           <styled.Input.Container>
-            <label htmlFor="width">Width</label>
+            <label htmlFor="width">Ширина</label>
             <input
               type="number"
               id="width"
               name="width"
-              defaultValue={curr.width}
-              ref={widthRef}
+              onChange={(e) => setWidth(+e.target.value)}
+              value={width}
             />
           </styled.Input.Container>
-          <styled.Button.Apply onClick={apply}>Apply</styled.Button.Apply>
+          <styled.Button.Apply onClick={apply}>Применить</styled.Button.Apply>
         </>
       )}
       {hide && (
         <styled.SizeInfo>
-          h: {curr.height} cm, w: {curr.width} cm
+          в: {curr.height} см, ш: {curr.width} см
         </styled.SizeInfo>
       )}
     </styled.SettingBoxList>

@@ -6,12 +6,12 @@ import client from "../../../../apollo-client";
 import DecorSetting from "../../../../modules/constructor/settings/DecorSetting";
 import DecorItemInterface from "../../../../api/DecorItemInterface";
 import { CATEGORIES_RES, ITEMS_RES } from "../../catalogData";
-import Render, { store } from "../Render";
+import ConstructorWrapper, { store } from "../ConstructorWrapper";
 
 const wrappedComponent = (
-  <Render>
+  <ConstructorWrapper>
     <DecorSetting />
-  </Render>
+  </ConstructorWrapper>
 );
 
 describe("Constructor: DecorSetting", () => {

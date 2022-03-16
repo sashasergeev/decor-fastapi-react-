@@ -1,10 +1,4 @@
-import React, {
-  ElementType,
-  useEffect,
-  useRef,
-  useState,
-  Suspense,
-} from "react";
+import React, { ElementType, useEffect, useState, Suspense } from "react";
 
 import * as styled from "../../styles/constructor";
 import Size from "./settings/Size";
@@ -43,24 +37,17 @@ const Container = ({
 
   // size related
   const [size, setSize] = useState<SizesType>(defaultSize);
-  const heightInput = useRef<HTMLInputElement>();
-  const widthInput = useRef<HTMLInputElement>();
-  const applySize = () => {
+  const applySize = (height: number, width: number) => {
     setSize({
-      height: +(heightInput.current?.value ?? 0),
-      width: +(widthInput.current?.value ?? 0),
+      height,
+      width,
     });
   };
 
   return (
     <>
       <styled.SettingBox $hide={hideSettings ? true : false}>
-        <Size
-          curr={size}
-          heightRef={heightInput}
-          widthRef={widthInput}
-          applySize={applySize}
-        />
+        <Size curr={size} applySize={applySize} />
         <DecorSetting />
       </styled.SettingBox>
       <styled.SceneBox $size={hideSettings && hidePrice ? "full" : false}>

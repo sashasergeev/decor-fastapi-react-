@@ -1,4 +1,4 @@
-import { MockedProvider } from "@apollo/react-testing";
+// import { MockedProvider } from "@apollo/react-testing";
 import { ReactNode } from "react";
 import { Provider } from "react-redux";
 import { applyMiddleware, createStore } from "redux";
@@ -33,7 +33,7 @@ export const store = createStore(
       hideSizeSets: false,
     },
     catalog: {
-      applies: "window",
+      applies: "Window",
       categories: [],
       chosenCategory: false,
       items: [],
@@ -43,14 +43,8 @@ export const store = createStore(
   applyMiddleware(thunk.withExtraArgument(api))
 );
 
-const Render = ({ children }: { children: ReactNode }) => {
-  return (
-    <Provider store={store}>
-      <MockedProvider mocks={[]} addTypename={false}>
-        {children}
-      </MockedProvider>
-    </Provider>
-  );
+const ConstructorWrapper = ({ children }: { children: ReactNode }) => {
+  return <Provider store={store}>{children}</Provider>;
 };
 
-export default Render;
+export default ConstructorWrapper;
