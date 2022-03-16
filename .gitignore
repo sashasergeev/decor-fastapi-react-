@@ -27,6 +27,7 @@ backend/__pycache__
 __pycache__
 .vscode
 
+.jest
 static/
 public/items/image/
 public/items/models/

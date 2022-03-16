@@ -1,18 +1,13 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import Form, { SUBMIT_CONTACT } from "./Form";
+import Form, { SUBMIT_CONTACT } from "../../../modules/contacts/Form";
 import { MockedProvider } from "@apollo/react-testing";
+import {
+  mockErrorMutation,
+  mockSuccessMutation,
+  reqConactSubmit,
+} from "./requestData";
 
 describe("Contacts Page Form", () => {
-  const request = {
-    query: SUBMIT_CONTACT,
-    variables: {
-      email: "sastesthasergeev1@gmail.com",
-      message: "testing on error",
-      phone: "89112354897",
-      name: "SaSha",
-    },
-  };
-
   it("renders without an error", () => {
     render(
       <MockedProvider mocks={[]} addTypename={false}>
@@ -55,10 +50,6 @@ describe("Contacts Page Form", () => {
 
   describe("Submitting form states ui", () => {
     describe("loading and error", () => {
-      const mockErrorMutation = {
-        request,
-        error: new Error("test"),
-      };
       beforeEach(() => {
         render(
           <MockedProvider mocks={[mockErrorMutation]} addTypename={false}>
@@ -78,27 +69,21 @@ describe("Contacts Page Form", () => {
     });
 
     describe("success", () => {
-      const mockSuccessMutation = {
-        request,
-        result: { data: { insert_submit_one: { id: 11 } } },
-      };
       it("success text", async () => {
         render(
           <MockedProvider mocks={[mockSuccessMutation]} addTypename={false}>
             <Form />
           </MockedProvider>
         );
+
         // filling form with data
-        [
-          { name: "name", value: "SaSha" },
-          { name: "email", value: "sastesthasergeev1@gmail.com" },
-          { name: "phone", value: "89112354897" },
-          { name: "message", value: "testing on error" },
-        ].forEach((e) =>
-          fireEvent.change(screen.getByRole("textbox", { name: e.name }), {
-            target: { value: e.value },
-          })
-        );
+        Object.entries(reqConactSubmit.variables)
+          .map((e) => ({ name: e[0], value: e[1] }))
+          .forEach((e) =>
+            fireEvent.change(screen.getByRole("textbox", { name: e.name }), {
+              target: { value: e.value },
+            })
+          );
 
         fireEvent.click(screen.getByRole("button", { name: "ОТПРАВИТЬ" }));
         expect(

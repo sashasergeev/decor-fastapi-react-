@@ -7,5 +7,6 @@ module.exports = {
       tsconfig: "tsconfig.jest.json",
     },
   },
+  setupFiles: ["./.jest/setEnvVars.ts"], // to make env variables work
   setupFilesAfterEnv: ["./jest.setup.ts"],
 };

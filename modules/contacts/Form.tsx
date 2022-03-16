@@ -68,7 +68,11 @@ const Form = () => {
           идёт отправка...
         </FormElem.Success>
       ) : (
-        <FormElem.Form onSubmit={handleSubmit}>
+        <FormElem.Form
+          onSubmit={(e) => {
+            handleSubmit(e);
+          }}
+        >
           <FormElem.Input
             placeholder="Имя"
             value={name}

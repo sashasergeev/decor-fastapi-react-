@@ -1,5 +1,5 @@
 import React from "react";
-import { SkeletElem } from "../../../styles/constructor";
+import { SkeletElem } from "../../../../styles/constructor";
 
 export interface SkeletonListProps {
   width: number;

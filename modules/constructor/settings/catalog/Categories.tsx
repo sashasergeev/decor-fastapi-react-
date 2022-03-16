@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 
-import { fetchCategories, setCatalog } from "../store/actions";
+import { fetchCategories, setCatalog } from "../../store/actions";
 
 import SkeletonList from "./SkeletonList";
 
-import * as styled from "../../../styles/constructor";
-import CatalogList from "./CatalogList";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
+import * as styled from "../../../../styles/constructor";
+import Items from "./Items";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
-const Catalog = () => {
+const Categories = () => {
   // redux
   const dispatch = useAppDispatch();
   const { chosenCategory: category, categories: categoriesList } =
@@ -52,11 +52,11 @@ const Catalog = () => {
         </styled.Catalog.Container>
       ) : (
         <>
-          <CatalogList />
+          <Items />
         </>
       )}
     </>
   );
 };
 
-export default Catalog;
+export default Categories;

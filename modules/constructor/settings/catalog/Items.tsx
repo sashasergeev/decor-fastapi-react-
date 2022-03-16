@@ -1,20 +1,21 @@
-import { ChangeEvent, useState, useEffect, Suspense } from "react";
+import { ChangeEvent, useState, useEffect, Suspense, lazy } from "react";
 
 import { Canvas } from "@react-three/fiber";
 
-import PreviewItem from "../../common/PreviewItem";
+// import PreviewItem from "../../../common/PreviewItem";
 import SkeletonList from "./SkeletonList";
-import * as styled from "../../../styles/constructor";
+import * as styled from "../../../../styles/constructor";
 
 import {
   fetchItems,
   applyItem,
   resetItem,
   clearCatalog,
-} from "../store/actions";
-import { useAppSelector, useAppDispatch } from "../store/hooks";
+} from "../../store/actions";
+import { useAppSelector, useAppDispatch } from "../../store/hooks";
+const PreviewItem = lazy(() => import("../../../common/PreviewItem"));
 
-const CatalogList = () => {
+const Items = () => {
   // redux
   const dispatch = useAppDispatch();
   const { items, chosenUsage } = useAppSelector(({ catalog }) => catalog);
@@ -22,7 +23,6 @@ const CatalogList = () => {
   useEffect(() => {
     dispatch(fetchItems());
   }, []);
-
   // chosen item
   const [item, setItem] = useState<undefined | string>();
 
@@ -55,7 +55,7 @@ const CatalogList = () => {
   };
   return (
     <>
-      {/* ITEMS */}
+      {/* LIST OF ITEMS */}
       <styled.Catalog.Container>
         {items?.length !== 0 ? (
           items?.map((e, inx) => (
@@ -74,7 +74,7 @@ const CatalogList = () => {
         )}
       </styled.Catalog.Container>
 
-      {/* PREVIEW OF ITEM */}
+      {/* PREVIEW OF ITEM WITH SIZE SETTINGS */}
       <Suspense fallback={null}>
         {item ? (
           <>
@@ -130,4 +130,4 @@ const CatalogList = () => {
   );
 };
 
-export default CatalogList;
+export default Items;

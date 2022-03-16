@@ -1,15 +1,11 @@
 import { OrbitControls } from "@react-three/drei";
-
-import { useLoader } from "@react-three/fiber";
-import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
-
+import { useLoader, useThree } from "@react-three/fiber";
 import { useEffect } from "react";
-import { useThree } from "@react-three/fiber";
+import { Color } from "three";
+import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
 import DecorItemInterface from "../../api/DecorItemInterface";
 
-import { Color } from "three";
-
-const PreviewItem = ({ item } : {item: DecorItemInterface}) => {
+const PreviewItem = ({ item }: { item: DecorItemInterface }) => {
   const geom = useLoader(STLLoader, `/items/models/${item.id}.stl`);
 
   const state = useThree();
