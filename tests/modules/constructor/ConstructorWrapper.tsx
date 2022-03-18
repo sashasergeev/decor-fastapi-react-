@@ -1,14 +1,12 @@
-// import { MockedProvider } from "@apollo/react-testing";
 import { ReactNode } from "react";
 import { Provider } from "react-redux";
-import { applyMiddleware, createStore } from "redux";
-import thunk from "redux-thunk";
 import api from "../../../modules/constructor/store/api";
 import reducers from "../../../modules/constructor/store/reducers";
+import { configureStore } from "@reduxjs/toolkit";
 
-export const store = createStore(
-  reducers,
-  {
+export const store = configureStore({
+  reducer: reducers,
+  preloadedState: {
     usage: {
       Middle: {
         id: 2,
@@ -40,8 +38,13 @@ export const store = createStore(
     },
     scene: { focus: undefined, moveBack: false, zoom: false },
   },
-  applyMiddleware(thunk.withExtraArgument(api))
-);
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      thunk: {
+        extraArgument: { api },
+      },
+    }),
+});
 
 const ConstructorWrapper = ({ children }: { children: ReactNode }) => {
   return <Provider store={store}>{children}</Provider>;

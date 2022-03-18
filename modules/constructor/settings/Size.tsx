@@ -22,13 +22,13 @@ const Size = ({ curr, applySize }: SizePropsI) => {
 
   const apply = () => {
     applySize(height, width);
-    dispatch(setUI("hideSizeSets", true));
+    dispatch(setUI({ key: "hideSizeSets", value: true }));
   };
 
   return (
     <styled.SettingBoxList>
       <styled.SettingTitle
-        onClick={() => dispatch(setUI("hideSizeSets", !hide))}
+        onClick={() => dispatch(setUI({ key: "hideSizeSets", value: !hide }))}
       >
         Размер {applies === "Window" ? "окна" : "двери"}
       </styled.SettingTitle>

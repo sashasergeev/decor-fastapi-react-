@@ -12,7 +12,7 @@ const DecorSetting = () => {
     category: catalog.chosenCategory,
   }));
   const onTitleClick = () => {
-    dispatch(setUI("hideDecSets", !hide));
+    dispatch(setUI({ key: "hideDecSets", value: !hide }));
     dispatch(clearCatalog());
   };
 

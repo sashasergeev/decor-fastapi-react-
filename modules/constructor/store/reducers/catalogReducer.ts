@@ -1,12 +1,12 @@
+import { initialCatalogStateI } from "../types";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AsyncThunkConfig } from ".";
+import { CategoryI } from "../../../../api/Catalog";
 import {
-  CatalogActionTypesAll,
-  CLEAR_CATALOG,
-  GET_CATEGORIES,
-  GET_ITEMS,
-  initialCatalogStateI,
-  SET_APPLIES,
-  SET_CATALOG,
-} from "../types";
+  categoriesByUsageQuery,
+  itemsByCategoryQuery,
+} from "../../../../queries";
+import DecorItemInterface from "../../../../api/DecorItemInterface";
 
 const initialState: initialCatalogStateI = {
   applies: false,
@@ -16,43 +16,66 @@ const initialState: initialCatalogStateI = {
   items: [],
 };
 
-const catalogReducer = (
-  state: initialCatalogStateI = initialState,
-  action: CatalogActionTypesAll
-): initialCatalogStateI => {
-  switch (action.type) {
-    case GET_CATEGORIES:
-      return {
-        ...state,
-        categories: action.payload,
-      };
-    case GET_ITEMS:
-      return {
-        ...state,
-        items: action.payload,
-      };
-    case SET_CATALOG:
-      return {
-        ...state,
-        ...action.payload,
-      };
-    case CLEAR_CATALOG:
-      return {
-        ...state,
-        chosenUsage: false,
-        categories: [],
-        chosenCategory: false,
-        items: [],
-      };
-    case SET_APPLIES:
-      return {
-        ...state,
-        applies: action.payload,
-      };
-
-    default:
-      return state;
+export const fetchCategories = createAsyncThunk<
+  CategoryI[],
+  void,
+  AsyncThunkConfig
+>("catalog/fetchCategories", async (_, { getState, extra: { api } }) => {
+  const { applies, chosenUsage } = getState().catalog;
+  if (applies && chosenUsage) {
+    const categories = (await api(categoriesByUsageQuery(applies, chosenUsage)))
+      .data.categories; //as CategoryI[];
+    return categories;
   }
-};
+});
 
-export default catalogReducer;
+export const fetchItems = createAsyncThunk<
+  DecorItemInterface[],
+  void,
+  AsyncThunkConfig
+>("catalog/fetchItems", async (_, { getState, extra: { api } }) => {
+  const { chosenCategory } = getState().catalog;
+  if (chosenCategory) {
+    const items = (await api(itemsByCategoryQuery(chosenCategory.id))).data
+      .categories_by_pk.items;
+    return items;
+  }
+});
+
+const catalogSlice = createSlice({
+  name: "catalog",
+  initialState,
+  reducers: {
+    setApplies: (state, action: PayloadAction<string>) => {
+      state.applies = action.payload;
+      return state;
+    },
+    setCatalog: (
+      state,
+      action: PayloadAction<Partial<initialCatalogStateI>>
+    ) => {
+      state = { ...state, ...action.payload };
+      return state;
+    },
+    clearCatalog: (state) => {
+      state.chosenUsage = false;
+      state.categories = [];
+      state.chosenCategory = false;
+      state.items = [];
+      return state;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchCategories.fulfilled, (state, action) => {
+      state.categories = action.payload;
+      return state;
+    });
+    builder.addCase(fetchItems.fulfilled, (state, action) => {
+      state.items = action.payload;
+      return state;
+    });
+  },
+});
+
+export const { setApplies, setCatalog, clearCatalog } = catalogSlice.actions;
+export default catalogSlice.reducer;

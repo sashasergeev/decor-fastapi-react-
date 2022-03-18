@@ -41,7 +41,7 @@ const DecorItem = ({
           })
         );
         // add size of an item to state (usage -> chosen.size)
-        dispatch(applyItemLength(usage, size[0]));
+        dispatch(applyItemLength({usage, size: size[0]}));
       });
     }
   }, [id]);

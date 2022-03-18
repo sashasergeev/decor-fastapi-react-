@@ -33,6 +33,7 @@ const Container = ({
     ({ usage, ui }) => [usage, ui.hideSettings, ui.hidePrice],
     shallowEqual
   );
+  console.log(elements);
   useEffect(() => dispatch(initiateConstructor(elementOfDecor)), []);
 
   // size related

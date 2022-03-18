@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "../store/hooks";
 const Button = () => {
   const dispatch = useAppDispatch();
   const hide = useAppSelector(({ ui }) => ui.hideSettings);
-  const toggle = () => dispatch(toggleSettings());
+  const toggle = () => dispatch(toggleSettings(false));
 
   // btn custom styles
   const body = `

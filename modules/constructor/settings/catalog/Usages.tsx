@@ -1,5 +1,5 @@
 import React from "react";
-import { setUI, setCatalog, clearCatalog } from "../../store/actions";
+import { setCatalog, clearCatalog } from "../../store/actions";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import * as styled from "../../../../styles/constructor";
 import SkeletonList from "./SkeletonList";

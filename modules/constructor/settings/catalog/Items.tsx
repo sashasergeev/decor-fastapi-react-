@@ -49,7 +49,7 @@ const Items = () => {
         decor.height = height;
         decor.width = width;
       }
-      dispatch(applyItem(decor, chosenUsage));
+      dispatch(applyItem({ decor, chosenUsage }));
       dispatch(clearCatalog());
     }
   };
